@@ -1,0 +1,7 @@
+Tampilkan riwayat absensi dalam GUI
+
+Tambahkan validasi input sebelum simpan ke DB
+
+bantu menambahkan notifikasi popup atau pesan error jika proses training gagal atau data wajah belum direkam.
+
+aku bisa bantu buatkan fungsi menampilkan daftar absensi dan melihat foto yang tersimpan juga. Mau?
