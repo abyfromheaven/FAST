@@ -22,14 +22,24 @@ latihDir = 'latihwajah'
 wajahGuruDir = 'datawajah_guru'
 latihGuruDir = 'latihwajah_guru'
 haarcascadePath = 'haarcascade_frontalface_default.xml'
+haarcascadeEyePath = 'haarcascade_eye.xml'
 db_path = 'facesentry.db'
 
 # Pastikan folder ada
 for path in [wajahDir, latihDir, wajahGuruDir, latihGuruDir]:
     os.makedirs(path, exist_ok=True)
 
-# Load Haar Cascade
+# Load Haar Cascades
 face_cascade = cv2.CascadeClassifier(haarcascadePath)
+eye_cascade = cv2.CascadeClassifier(haarcascadeEyePath)
+
+# FUNGSI TAMBAHAN UNTUK DETEKSI MATA
+def draw_eyes(frame, gray, x, y, w, h):
+    roi_gray = gray[y:y+h, x:x+w]
+    roi_color = frame[y:y+h, x:x+w]
+    eyes = eye_cascade.detectMultiScale(roi_gray)
+    for (ex, ey, ew, eh) in eyes:
+        cv2.rectangle(roi_color, (ex, ey), (ex+ew, ey+eh), (255, 255, 0), 2)
 
 def rekamDataWajahSiswa():
     nama = entry_nama.get()
@@ -59,6 +69,9 @@ def rekamDataWajahSiswa():
             wajah = gray[y:y+h, x:x+w]
             cv2.imwrite(f"{wajahDir}/siswa.{user_id}.{count}.jpg", wajah)
             cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 0, 0), 2)
+
+            # Panggil fungsi untuk deteksi dan gambar mata
+            draw_eyes(frame, gray, x, y, w, h)
 
         cv2.imshow('Rekam Wajah Siswa', frame)
         if cv2.waitKey(1) == 27 or count >= 30:
@@ -156,6 +169,9 @@ def absensiWajahSiswa():
                     cv2.putText(frame, kelas, (x_rect, y_rect + size2[1] + spacing),
                                 font, font_scale, (255, 255, 255), thickness)
 
+                    # Tambahkan deteksi mata di wajah yang dikenali
+                    draw_eyes(frame, gray, x, y, w, h)
+
                     if face_detected_counter >= target_counter:
                         waktu = datetime.now().strftime("%Y-%m-%d")
                         cur.execute("SELECT * FROM absensi WHERE nama = ? AND kelas = ? AND DATE(waktu) = ?", (nama, kelas, waktu))
@@ -171,7 +187,6 @@ def absensiWajahSiswa():
                         return
             else:
                 face_detected_counter = 0
-
         else:
             face_detected_counter = 0
 
@@ -182,6 +197,8 @@ def absensiWajahSiswa():
 
         for (x, y, w, h) in faces:
             cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 6)
+            # Tambahkan deteksi mata pada semua wajah yang terdeteksi
+            draw_eyes(frame, gray, x, y, w, h)
 
         img_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         img_pil = Image.fromarray(img_rgb)
@@ -222,6 +239,9 @@ def rekamDataWajahGuru():
             cv2.imwrite(f"{wajahGuruDir}/guru.{user_id}.{count}.jpg", wajah)
             cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 0, 0), 2)
 
+            # Tambahkan deteksi mata
+            draw_eyes(frame, gray, x, y, w, h)
+
         cv2.imshow('Rekam Wajah Guru', frame)
         if cv2.waitKey(1) == 27 or count >= 30:
             break
@@ -243,6 +263,7 @@ def trainingWajahGuru():
     recognizer.train(faces, np.array(ids))
     recognizer.write(os.path.join(latihGuruDir, 'training_guru.xml'))
     messagebox.showinfo("Info", "Model wajah guru berhasil dilatih.")
+
 
 def absensiWajahGuru():
     recognizer = cv2.face.LBPHFaceRecognizer_create()
@@ -289,7 +310,6 @@ def absensiWajahGuru():
                     nama, mapel = result
                     face_detected_counter += 1
 
-                    # Update progress bar dan label
                     progressbar.set(face_detected_counter / target_counter)
                     progress_persen = int((face_detected_counter / target_counter) * 100)
                     progress_label.configure(text=f"Progres: {progress_persen}%")
@@ -304,10 +324,13 @@ def absensiWajahGuru():
                     x_rect = x
                     y_rect = y + h + 20
                     cv2.rectangle(frame, (x_rect - 5, y_rect - size1[1] - 10),
-                                  (x_rect + width + 5, y_rect + size2[1] + spacing), (0, 255, 255), -1)
-                    cv2.putText(frame, nama, (x_rect, y_rect), font, font_scale, (0, 0, 0), thickness)
+                                  (x_rect + width + 5, y_rect + size2[1] + spacing), (0, 255, 0), -1)
+                    cv2.putText(frame, nama, (x_rect, y_rect), font, font_scale, (255, 255, 255), thickness)
                     cv2.putText(frame, mapel, (x_rect, y_rect + size2[1] + spacing),
-                                font, font_scale, (0, 0, 0), thickness)
+                                font, font_scale, (255, 255, 255), thickness)
+
+                    # Tambahkan deteksi mata
+                    draw_eyes(frame, gray, x, y, w, h)
 
                     if face_detected_counter >= target_counter:
                         waktu = datetime.now().strftime("%Y-%m-%d")
@@ -327,13 +350,14 @@ def absensiWajahGuru():
         else:
             face_detected_counter = 0
 
-        # Reset progress bar dan label jika wajah tidak dikenali
         progressbar.set(face_detected_counter / target_counter)
         progress_persen = int((face_detected_counter / target_counter) * 100)
         progress_label.configure(text=f"Progres: {progress_persen}%")
 
         for (x, y, w, h) in faces:
-            cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 255), 6)
+            cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 6)
+            # Tambahkan deteksi mata
+            draw_eyes(frame, gray, x, y, w, h)
 
         img_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         img_pil = Image.fromarray(img_rgb)
