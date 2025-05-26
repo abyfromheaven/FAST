@@ -62,3 +62,7 @@ Pisahkan fungsi-fungsi ke dalam file Python terpisah (modular) agar lebih mudah 
 Menjadikan deteksi mata sebagai salah satu validasi anti-spoofing
 
 Atau mendeteksi kedipan mata (eye blink detection)
+
+Eye blink detection
+
+Liveness check sederhana
