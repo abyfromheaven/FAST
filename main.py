@@ -86,6 +86,18 @@ class DashboardPage(ctk.CTkFrame):
         self.label_guru_count = ctk.CTkLabel(self.overview_frame, text="Loading...")
         self.label_guru_count.grid(row=1, column=1, sticky="w", padx=30, pady=(0,15))
 
+        # Recent Attendance Logs
+        self.label_recent_title = ctk.CTkLabel(self, text="Catatan Absensi Terbaru", font=ctk.CTkFont(size=18))
+        self.label_recent_title.pack(pady=(20, 10))
+
+        self.recent_frame = ctk.CTkFrame(self)
+        self.recent_frame.pack(pady=10, padx=20, fill="x")
+
+        self.recent_logs = ctk.CTkTextbox(self.recent_frame, height=200)
+        self.recent_logs.pack(fill="both", expand=True)
+
+        self.refresh_recent_logs()
+
     def refresh(self):
         # Query attendance counts for today
         try:
@@ -106,6 +118,36 @@ class DashboardPage(ctk.CTkFrame):
 
         self.label_siswa_count.configure(text=f"Jumlah siswa yang absen hari ini: {siswa_count}")
         self.label_guru_count.configure(text=f"Jumlah guru yang absen hari ini: {guru_count}")
+
+    def refresh_recent_logs(self):
+        try:
+            conn = sqlite3.connect(db_path)
+            cur = conn.cursor()
+
+            # Get recent student attendance
+            cur.execute("SELECT nama, kelas, waktu FROM absensi ORDER BY waktu DESC LIMIT 5")
+            siswa_logs = cur.fetchall()
+
+            # Get recent teacher attendance
+            cur.execute("SELECT nama, mapel, waktu FROM absensi_guru ORDER BY waktu DESC LIMIT 5")
+            guru_logs = cur.fetchall()
+
+            conn.close()
+
+            # Clear previous logs
+            self.recent_logs.delete("1.0", ctk.END)
+
+            # Display recent logs
+            self.recent_logs.insert(ctk.END, "Absensi Siswa:\n")
+            for log in siswa_logs:
+                self.recent_logs.insert(ctk.END, f"{log[0]} (Kelas: {log[1]}) - {log[2]}\n")
+
+            self.recent_logs.insert(ctk.END, "\nAbsensi Guru:\n")
+            for log in guru_logs:
+                self.recent_logs.insert(ctk.END, f"{log[0]} (Mata Pelajaran: {log[1]}) - {log[2]}\n")
+
+        except Exception as e:
+            self.recent_logs.insert(ctk.END, "Error loading logs.")
 
 class RekamWajahPage(ctk.CTkFrame):
     def __init__(self, parent):
