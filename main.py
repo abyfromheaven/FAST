@@ -30,23 +30,17 @@ class DashboardApp(ctk.CTk):
 
         # Navigation Buttons
         self.btn_dashboard = ctk.CTkButton(self.nav_frame, text="Dashboard", command=self.show_dashboard)
-        self.btn_rekam_siswa = ctk.CTkButton(self.nav_frame, text="Rekam Wajah Siswa", command=self.show_rekam_siswa)
-        self.btn_absensi_siswa = ctk.CTkButton(self.nav_frame, text="Absensi Wajah Siswa", command=self.show_absensi_siswa)
-        self.btn_rekam_guru = ctk.CTkButton(self.nav_frame, text="Rekam Wajah Guru", command=self.show_rekam_guru)
-        self.btn_absensi_guru = ctk.CTkButton(self.nav_frame, text="Absensi Wajah Guru", command=self.show_absensi_guru)
+        self.btn_rekam_wajah = ctk.CTkButton(self.nav_frame, text="Rekam Wajah", command=self.show_rekam_wajah)
+        self.btn_absensi = ctk.CTkButton(self.nav_frame, text="Absensi", command=self.show_absensi)
 
         self.btn_dashboard.pack(padx=10, pady=(30,10), fill="x")
-        self.btn_rekam_siswa.pack(padx=10, pady=10, fill="x")
-        self.btn_absensi_siswa.pack(padx=10, pady=10, fill="x")
-        self.btn_rekam_guru.pack(padx=10, pady=10, fill="x")
-        self.btn_absensi_guru.pack(padx=10, pady=10, fill="x")
+        self.btn_rekam_wajah.pack(padx=10, pady=10, fill="x")
+        self.btn_absensi.pack(padx=10, pady=10, fill="x")
 
         # Initialize pages
         self.dashboard_page = DashboardPage(self.content_frame)
-        self.rekam_siswa_page = RekamWajahSiswaPage(self.content_frame)
-        self.absensi_siswa_page = AbsensiWajahSiswaPage(self.content_frame)
-        self.rekam_guru_page = RekamWajahGuruPage(self.content_frame)
-        self.absensi_guru_page = AbsensiWajahGuruPage(self.content_frame)
+        self.rekam_wajah_page = RekamWajahPage(self.content_frame)
+        self.absensi_page = AbsensiPage(self.content_frame)
 
         # Show dashboard by default
         self.show_frame(self.dashboard_page)
@@ -64,17 +58,11 @@ class DashboardApp(ctk.CTk):
     def show_dashboard(self):
         self.show_frame(self.dashboard_page)
 
-    def show_rekam_siswa(self):
-        self.show_frame(self.rekam_siswa_page)
+    def show_rekam_wajah(self):
+        self.show_frame(self.rekam_wajah_page)
 
-    def show_absensi_siswa(self):
-        self.show_frame(self.absensi_siswa_page)
-
-    def show_rekam_guru(self):
-        self.show_frame(self.rekam_guru_page)
-
-    def show_absensi_guru(self):
-        self.show_frame(self.absensi_guru_page)
+    def show_absensi(self):
+        self.show_frame(self.absensi_page)
 
 class DashboardPage(ctk.CTkFrame):
     def __init__(self, parent):
@@ -98,20 +86,6 @@ class DashboardPage(ctk.CTkFrame):
         self.label_guru_count = ctk.CTkLabel(self.overview_frame, text="Loading...")
         self.label_guru_count.grid(row=1, column=1, sticky="w", padx=30, pady=(0,15))
 
-        # Buttons on dashboard for quick navigation
-        self.buttons_frame = ctk.CTkFrame(self)
-        self.buttons_frame.pack(pady=20)
-
-        self.btn_rekam_siswa = ctk.CTkButton(self.buttons_frame, text="Rekam Wajah Siswa")
-        self.btn_absensi_siswa = ctk.CTkButton(self.buttons_frame, text="Absensi Wajah Siswa")
-        self.btn_rekam_guru = ctk.CTkButton(self.buttons_frame, text="Rekam Wajah Guru")
-        self.btn_absensi_guru = ctk.CTkButton(self.buttons_frame, text="Absensi Wajah Guru")
-
-        self.btn_rekam_siswa.grid(row=0, column=0, padx=15, pady=10)
-        self.btn_absensi_siswa.grid(row=0, column=1, padx=15, pady=10)
-        self.btn_rekam_guru.grid(row=1, column=0, padx=15, pady=10)
-        self.btn_absensi_guru.grid(row=1, column=1, padx=15, pady=10)
-
     def refresh(self):
         # Query attendance counts for today
         try:
@@ -133,7 +107,73 @@ class DashboardPage(ctk.CTkFrame):
         self.label_siswa_count.configure(text=f"Jumlah siswa yang absen hari ini: {siswa_count}")
         self.label_guru_count.configure(text=f"Jumlah guru yang absen hari ini: {guru_count}")
 
-class RekamWajahSiswaPage(ctk.CTkFrame):
+class RekamWajahPage(ctk.CTkFrame):
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.label_title = ctk.CTkLabel(self, text="Rekam Wajah", font=ctk.CTkFont(size=24, weight="bold"))
+        self.label_title.pack(pady=15)
+
+        # Sub-navigation for Guru and Siswa
+        self.sub_nav_frame = ctk.CTkFrame(self)
+        self.sub_nav_frame.pack(pady=10)
+
+        self.btn_rekam_siswa = ctk.CTkButton(self.sub_nav_frame, text="Siswa", command=self.show_rekam_siswa)
+        self.btn_rekam_guru = ctk.CTkButton(self.sub_nav_frame, text="Guru", command=self.show_rekam_guru)
+
+        self.btn_rekam_siswa.pack(side="left", padx=10)
+        self.btn_rekam_guru.pack(side="left", padx=10)
+
+        # Content frame for recording
+        self.recording_frame = ctk.CTkFrame(self)
+        self.recording_frame.pack(pady=20)
+
+        self.siswa_frame = SiswaRekamWajahFrame(self.recording_frame)
+        self.guru_frame = GuruRekamWajahFrame(self.recording_frame)
+
+        self.show_rekam_siswa()  # Show siswa frame by default
+
+    def show_rekam_siswa(self):
+        self.guru_frame.pack_forget()
+        self.siswa_frame.pack(fill="both", expand=True)
+
+    def show_rekam_guru(self):
+        self.siswa_frame.pack_forget()
+        self.guru_frame.pack(fill="both", expand=True)
+
+class AbsensiPage(ctk.CTkFrame):
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.label_title = ctk.CTkLabel(self, text="Absensi", font=ctk.CTkFont(size=24, weight="bold"))
+        self.label_title.pack(pady=15)
+
+        # Sub-navigation for Guru and Siswa
+        self.sub_nav_frame = ctk.CTkFrame(self)
+        self.sub_nav_frame.pack(pady=10)
+
+        self.btn_absensi_siswa = ctk.CTkButton(self.sub_nav_frame, text="Siswa", command=self.show_absensi_siswa)
+        self.btn_absensi_guru = ctk.CTkButton(self.sub_nav_frame, text="Guru", command=self.show_absensi_guru)
+
+        self.btn_absensi_siswa.pack(side="left", padx=10)
+        self.btn_absensi_guru.pack(side="left", padx=10)
+
+        # Content frame for attendance
+        self.attendance_frame = ctk.CTkFrame(self)
+        self.attendance_frame.pack(pady=20)
+
+        self.siswa_absensi_frame = SiswaAbsensiFrame(self.attendance_frame)
+        self.guru_absensi_frame = GuruAbsensiFrame(self.attendance_frame)
+
+        self.show_absensi_siswa()  # Show siswa frame by default
+
+    def show_absensi_siswa(self):
+        self.guru_absensi_frame.pack_forget()
+        self.siswa_absensi_frame.pack(fill="both", expand=True)
+
+    def show_absensi_guru(self):
+        self.siswa_absensi_frame.pack_forget()
+        self.guru_absensi_frame.pack(fill="both", expand=True)
+
+class SiswaRekamWajahFrame(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent)
         label = ctk.CTkLabel(self, text="Rekam Wajah Siswa", font=ctk.CTkFont(size=20, weight="bold"))
@@ -167,22 +207,7 @@ class RekamWajahSiswaPage(ctk.CTkFrame):
         self.entry_nama.delete(0, "end")
         self.entry_kelas.delete(0, "end")
 
-class AbsensiWajahSiswaPage(ctk.CTkFrame):
-    def __init__(self, parent):
-        super().__init__(parent)
-        label = ctk.CTkLabel(self, text="Absensi Wajah Siswa", font=ctk.CTkFont(size=20, weight="bold"))
-        label.pack(pady=20)
-
-        self.btn_absensi = ctk.CTkButton(self, text="Mulai Absensi Wajah Siswa", command=self.mulai_absensi)
-        self.btn_absensi.pack(pady=20)
-
-    def mulai_absensi(self):
-        absensiWajahSiswa()
-
-    def refresh(self):
-        pass
-
-class RekamWajahGuruPage(ctk.CTkFrame):
+class GuruRekamWajahFrame(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent)
         label = ctk.CTkLabel(self, text="Rekam Wajah Guru", font=ctk.CTkFont(size=20, weight="bold"))
@@ -216,7 +241,22 @@ class RekamWajahGuruPage(ctk.CTkFrame):
         self.entry_nama.delete(0, "end")
         self.entry_mapel.delete(0, "end")
 
-class AbsensiWajahGuruPage(ctk.CTkFrame):
+class SiswaAbsensiFrame(ctk.CTkFrame):
+    def __init__(self, parent):
+        super().__init__(parent)
+        label = ctk.CTkLabel(self, text="Absensi Wajah Siswa", font=ctk.CTkFont(size=20, weight="bold"))
+        label.pack(pady=20)
+
+        self.btn_absensi = ctk.CTkButton(self, text="Mulai Absensi Wajah Siswa", command=self.mulai_absensi)
+        self.btn_absensi.pack(pady=20)
+
+    def mulai_absensi(self):
+        absensiWajahSiswa()
+
+    def refresh(self):
+        pass
+
+class GuruAbsensiFrame(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent)
         label = ctk.CTkLabel(self, text="Absensi Wajah Guru", font=ctk.CTkFont(size=20, weight="bold"))
@@ -234,4 +274,3 @@ class AbsensiWajahGuruPage(ctk.CTkFrame):
 if __name__ == "__main__":
     app = DashboardApp()
     app.mainloop()
-
