@@ -5,7 +5,6 @@ from PIL import Image, ImageTk
 from datetime import datetime
 import customtkinter as ctk
 from config import db_path, latihGuruDir, haarcascadePath
-from eye_detection import draw_eyes
 
 face_cascade = cv2.CascadeClassifier(haarcascadePath)
 
@@ -79,7 +78,6 @@ def absensiWajahGuru():
                     cv2.putText(frame, nama, (x_rect, y_rect), font, font_scale, (255, 255, 255), thickness)
                     cv2.putText(frame, mapel, (x_rect, y_rect + size2[1] + spacing),
                                 font, font_scale, (255, 255, 255), thickness)
-                    draw_eyes(frame, gray, x, y, w, h)
 
                     if face_detected_counter >= target_counter:
                         waktu = datetime.now().strftime("%Y-%m-%d")
@@ -105,7 +103,6 @@ def absensiWajahGuru():
 
         for (x, y, w, h) in faces:
             cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 6)
-            draw_eyes(frame, gray, x, y, w, h)
 
         img_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         img_pil = Image.fromarray(img_rgb)

@@ -2,7 +2,6 @@ import cv2
 import sqlite3
 from tkinter import messagebox
 from config import db_path, wajahGuruDir, haarcascadePath
-from eye_detection import draw_eyes
 
 face_cascade = cv2.CascadeClassifier(haarcascadePath)
 
@@ -34,7 +33,6 @@ def rekamDataWajahGuru(entry_nama, entry_mapel):
             wajah = gray[y:y+h, x:x+w]
             cv2.imwrite(f"{wajahGuruDir}/{nama}.{user_id}.{count}.jpg", wajah)
             cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 0, 0), 2)
-            draw_eyes(frame, gray, x, y, w, h)
 
         cv2.imshow('Rekam Wajah Guru', frame)
         if cv2.waitKey(1) == 27 or count >= 30:
