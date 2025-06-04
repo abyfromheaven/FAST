@@ -1,3 +1,4 @@
+# rekam_wajah.py (siswa)
 import cv2
 import sqlite3
 from tkinter import messagebox
@@ -5,9 +6,7 @@ from config import db_path, wajahDir, haarcascadePath
 
 face_cascade = cv2.CascadeClassifier(haarcascadePath)
 
-def rekamDataWajahSiswa(entry_nama, entry_kelas):
-    nama = entry_nama.get()
-    kelas = entry_kelas.get()
+def rekamDataWajahSiswa(nama, kelas):
     if not nama or not kelas:
         messagebox.showwarning("Peringatan", "Nama dan kelas harus diisi!")
         return

@@ -1,3 +1,4 @@
+# rekam_wajah.py (guru)
 import cv2
 import sqlite3
 from tkinter import messagebox
@@ -5,9 +6,7 @@ from config import db_path, wajahGuruDir, haarcascadePath
 
 face_cascade = cv2.CascadeClassifier(haarcascadePath)
 
-def rekamDataWajahGuru(entry_nama, entry_mapel):
-    nama = entry_nama.get()
-    mapel = entry_mapel.get()
+def rekamDataWajahGuru(nama, mapel):
     if not nama or not mapel:
         messagebox.showwarning("Peringatan", "Nama dan mapel harus diisi!")
         return

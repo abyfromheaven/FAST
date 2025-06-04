@@ -6,6 +6,7 @@ from datetime import datetime
 import customtkinter as ctk
 import numpy as np
 from config import db_path, latihDir, haarcascadePath
+from notifier import kirim_notifikasi_absensi
 
 face_cascade = cv2.CascadeClassifier(haarcascadePath)
 
@@ -87,7 +88,12 @@ def absensiWajahSiswa():
                             waktu_full = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                             cur.execute("INSERT INTO absensi (nama, kelas, waktu) VALUES (?, ?, ?)", (nama, kelas, waktu_full))
                             conn.commit()
+
+                            # Kirim notifikasi ke channel ntfy.sh sesuai kelas
+                            kirim_notifikasi_absensi(nama, kelas, waktu_full)
+
                             messagebox.showinfo("Absensi Berhasil", f"{nama} kelas ({kelas}) berhasil absen.")
+
                         else:
                             messagebox.showinfo("Info", f"{nama} kelas ({kelas}) sudah absen hari ini.")
                         cam.release()

@@ -6,11 +6,13 @@ from siswa.rekam_wajah import rekamDataWajahSiswa
 from siswa.absensi import absensiWajahSiswa
 from guru.rekam_wajah import rekamDataWajahGuru
 from guru.absensi import absensiWajahGuru
+from siswa.latih_wajah import trainingWajahSiswa
+from guru.latih_wajah import trainingWajahGuru
 
 class DashboardApp(ctk.CTk):
     def __init__(self):
         super().__init__()
-        self.title("FaceSentri - Dashboard")
+        self.title("FAST - Face Attendance Scan Technology")
         self.geometry("900x700")
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("blue")
@@ -99,7 +101,6 @@ class DashboardPage(ctk.CTkFrame):
         self.refresh_recent_logs()
 
     def refresh(self):
-        # Query attendance counts for today
         try:
             conn = sqlite3.connect(db_path)
             cur = conn.cursor()
@@ -167,20 +168,80 @@ class RekamWajahPage(ctk.CTkFrame):
 
         # Content frame for recording
         self.recording_frame = ctk.CTkFrame(self)
-        self.recording_frame.pack(pady=20)
+        self.recording_frame.pack(pady=20, fill="both", expand=True)
 
-        self.siswa_frame = SiswaRekamWajahFrame(self.recording_frame)
-        self.guru_frame = GuruRekamWajahFrame(self.recording_frame)
+        # Frame siswa & guru yang sudah termasuk tombol latih model dan input di dalamnya
+        self.siswa_frame = ctk.CTkFrame(self.recording_frame)
+        self.guru_frame = ctk.CTkFrame(self.recording_frame)
 
-        self.show_rekam_siswa()  # Show siswa frame by default
+        # --- Isi siswa_frame ---
+        ctk.CTkLabel(self.siswa_frame, text="Nama Siswa:").pack(pady=(0, 5))
+        self.entry_nama_siswa = ctk.CTkEntry(self.siswa_frame)
+        self.entry_nama_siswa.pack(pady=5)
+
+        ctk.CTkLabel(self.siswa_frame, text="Kelas Siswa:").pack(pady=(10, 5))
+        self.entry_kelas_siswa = ctk.CTkEntry(self.siswa_frame)
+        self.entry_kelas_siswa.pack(pady=5)
+
+        self.siswa_rekam_button = ctk.CTkButton(self.siswa_frame, text="Rekam Wajah Siswa", command=self.on_rekam_wajah_siswa)
+        self.siswa_rekam_button.pack(pady=10)
+
+        self.siswa_latih_button = ctk.CTkButton(self.siswa_frame, text="Latih Model Wajah Siswa", command=self.on_latih_wajah_siswa)
+        self.siswa_latih_button.pack(pady=10)
+
+        # --- Isi guru_frame ---
+        ctk.CTkLabel(self.guru_frame, text="Nama Guru:").pack(pady=(0, 5))
+        self.entry_nama_guru = ctk.CTkEntry(self.guru_frame)
+        self.entry_nama_guru.pack(pady=5)
+
+        ctk.CTkLabel(self.guru_frame, text="Mata Pelajaran:").pack(pady=(10, 5))
+        self.entry_kelas_guru = ctk.CTkEntry(self.guru_frame)
+        self.entry_kelas_guru.pack(pady=5)
+
+        self.guru_rekam_button = ctk.CTkButton(self.guru_frame, text="Rekam Wajah Guru", command=self.on_rekam_wajah_guru)
+        self.guru_rekam_button.pack(pady=10)
+
+        self.guru_latih_button = ctk.CTkButton(self.guru_frame, text="Latih Model Wajah Guru", command=self.on_latih_wajah_guru)
+        self.guru_latih_button.pack(pady=10)
+
+        # Tampilkan frame siswa secara default
+        self.show_rekam_siswa()
 
     def show_rekam_siswa(self):
         self.guru_frame.pack_forget()
-        self.siswa_frame.pack(fill="both", expand=True)
+        self.siswa_frame.pack(fill="both", expand=True, padx=20, pady=20)
 
     def show_rekam_guru(self):
         self.siswa_frame.pack_forget()
-        self.guru_frame.pack(fill="both", expand=True)
+        self.guru_frame.pack(fill="both", expand=True, padx=20, pady=20)
+
+    def on_rekam_wajah_siswa(self):
+        nama = self.entry_nama_siswa.get().strip()
+        kelas = self.entry_kelas_siswa.get().strip()
+        if not nama or not kelas:
+            print("Nama dan kelas siswa harus diisi!")
+            return
+        print(f"Mulai rekam wajah siswa: {nama}, kelas: {kelas}")
+        rekamDataWajahSiswa(nama, kelas)
+
+    def on_rekam_wajah_guru(self):
+        nama = self.entry_nama_guru.get().strip()
+        mapel = self.entry_kelas_guru.get().strip()
+        if not nama or not mapel:
+            print("Nama dan mata pelajaran guru harus diisi!")
+            return
+        print(f"Mulai rekam wajah guru: {nama}, mapel: {mapel}")
+        rekamDataWajahGuru(nama, mapel)
+
+    def on_latih_wajah_siswa(self):
+        print("Mulai pelatihan wajah siswa...")
+        trainingWajahSiswa()
+        print("Pelatihan wajah siswa selesai.")
+
+    def on_latih_wajah_guru(self):
+        print("Mulai pelatihan wajah guru...")
+        trainingWajahGuru()
+        print("Pelatihan wajah guru selesai.")
 
 class AbsensiPage(ctk.CTkFrame):
     def __init__(self, parent):
@@ -188,130 +249,45 @@ class AbsensiPage(ctk.CTkFrame):
         self.label_title = ctk.CTkLabel(self, text="Absensi", font=ctk.CTkFont(size=24, weight="bold"))
         self.label_title.pack(pady=15)
 
-        # Sub-navigation for Guru and Siswa
         self.sub_nav_frame = ctk.CTkFrame(self)
         self.sub_nav_frame.pack(pady=10)
 
-        self.btn_absensi_siswa = ctk.CTkButton(self.sub_nav_frame, text="Siswa", command=self.show_absensi_siswa)
-        self.btn_absensi_guru = ctk.CTkButton(self.sub_nav_frame, text="Guru", command=self.show_absensi_guru)
+        self.btn_absensi_siswa = ctk.CTkButton(self.sub_nav_frame, text="Absensi Siswa", command=self.show_absensi_siswa)
+        self.btn_absensi_guru = ctk.CTkButton(self.sub_nav_frame, text="Absensi Guru", command=self.show_absensi_guru)
 
         self.btn_absensi_siswa.pack(side="left", padx=10)
         self.btn_absensi_guru.pack(side="left", padx=10)
 
-        # Content frame for attendance
-        self.attendance_frame = ctk.CTkFrame(self)
-        self.attendance_frame.pack(pady=20)
+        self.absensi_siswa_frame = ctk.CTkFrame(self)
+        self.absensi_guru_frame = ctk.CTkFrame(self)
 
-        self.siswa_absensi_frame = SiswaAbsensiFrame(self.attendance_frame)
-        self.guru_absensi_frame = GuruAbsensiFrame(self.attendance_frame)
+        # Absensi Siswa
+        self.absensi_siswa_button = ctk.CTkButton(self.absensi_siswa_frame, text="Mulai Absensi Wajah Siswa", command=self.absensi_wajah_siswa)
+        self.absensi_siswa_button.pack(pady=20)
 
-        self.show_absensi_siswa()  # Show siswa frame by default
+        # Absensi Guru
+        self.absensi_guru_button = ctk.CTkButton(self.absensi_guru_frame, text="Mulai Absensi Wajah Guru", command=self.absensi_wajah_guru)
+        self.absensi_guru_button.pack(pady=20)
+
+        self.show_absensi_siswa()
 
     def show_absensi_siswa(self):
-        self.guru_absensi_frame.pack_forget()
-        self.siswa_absensi_frame.pack(fill="both", expand=True)
+        self.absensi_guru_frame.pack_forget()
+        self.absensi_siswa_frame.pack(fill="both", expand=True, padx=20, pady=20)
 
     def show_absensi_guru(self):
-        self.siswa_absensi_frame.pack_forget()
-        self.guru_absensi_frame.pack(fill="both", expand=True)
+        self.absensi_siswa_frame.pack_forget()
+        self.absensi_guru_frame.pack(fill="both", expand=True, padx=20, pady=20)
 
-class SiswaRekamWajahFrame(ctk.CTkFrame):
-    def __init__(self, parent):
-        super().__init__(parent)
-        label = ctk.CTkLabel(self, text="Rekam Wajah Siswa", font=ctk.CTkFont(size=20, weight="bold"))
-        label.pack(pady=20)
-        # Inputs for name and class
-        self.frame_inputs = ctk.CTkFrame(self)
-        self.frame_inputs.pack(pady=10, padx=10)
-
-        ctk.CTkLabel(self.frame_inputs, text="Nama Siswa").grid(row=0, column=0, padx=5, pady=10, sticky="w")
-        self.entry_nama = ctk.CTkEntry(self.frame_inputs)
-        self.entry_nama.grid(row=0, column=1, padx=5, pady=10)
-
-        ctk.CTkLabel(self.frame_inputs, text="Kelas").grid(row=1, column=0, padx=5, pady=10, sticky="w")
-        self.entry_kelas = ctk.CTkEntry(self.frame_inputs)
-        self.entry_kelas.grid(row=1, column=1, padx=5, pady=10)
-
-        self.btn_rekam = ctk.CTkButton(self.frame_inputs, text="Rekam Wajah", command=self.rekam_wajah)
-        self.btn_rekam.grid(row=2, column=0, columnspan=2, pady=20)
-
-    def rekam_wajah(self):
-        nama = self.entry_nama.get()
-        kelas = self.entry_kelas.get()
-        if not nama or not kelas:
-            from tkinter import messagebox
-            messagebox.showwarning("Peringatan", "Nama dan kelas harus diisi!")
-            return
-        # Call the existing rekamDataWajahSiswa function with entry widgets
-        rekamDataWajahSiswa(self.entry_nama, self.entry_kelas)
-
-    def refresh(self):
-        self.entry_nama.delete(0, "end")
-        self.entry_kelas.delete(0, "end")
-
-class GuruRekamWajahFrame(ctk.CTkFrame):
-    def __init__(self, parent):
-        super().__init__(parent)
-        label = ctk.CTkLabel(self, text="Rekam Wajah Guru", font=ctk.CTkFont(size=20, weight="bold"))
-        label.pack(pady=20)
-
-        self.frame_inputs = ctk.CTkFrame(self)
-        self.frame_inputs.pack(pady=10, padx=10)
-
-        ctk.CTkLabel(self.frame_inputs, text="Nama Guru").grid(row=0, column=0, padx=5, pady=10, sticky="w")
-        self.entry_nama = ctk.CTkEntry(self.frame_inputs)
-        self.entry_nama.grid(row=0, column=1, padx=5, pady=10)
-
-        ctk.CTkLabel(self.frame_inputs, text="Mata Pelajaran").grid(row=1, column=0, padx=5, pady=10, sticky="w")
-        self.entry_mapel = ctk.CTkEntry(self.frame_inputs)
-        self.entry_mapel.grid(row=1, column=1, padx=5, pady=10)
-
-        self.btn_rekam = ctk.CTkButton(self.frame_inputs, text="Rekam Wajah", command=self.rekam_wajah)
-        self.btn_rekam.grid(row=2, column=0, columnspan=2, pady=20)
-
-    def rekam_wajah(self):
-        nama = self.entry_nama.get()
-        mapel = self.entry_mapel.get()
-        if not nama or not mapel:
-            from tkinter import messagebox
-            messagebox.showwarning("Peringatan", "Nama dan mapel harus diisi!")
-            return
-        # Call the existing rekamDataWajahGuru function with entry widgets
-        rekamDataWajahGuru(self.entry_nama, self.entry_mapel)
-
-    def refresh(self):
-        self.entry_nama.delete(0, "end")
-        self.entry_mapel.delete(0, "end")
-
-class SiswaAbsensiFrame(ctk.CTkFrame):
-    def __init__(self, parent):
-        super().__init__(parent)
-        label = ctk.CTkLabel(self, text="Absensi Wajah Siswa", font=ctk.CTkFont(size=20, weight="bold"))
-        label.pack(pady=20)
-
-        self.btn_absensi = ctk.CTkButton(self, text="Mulai Absensi Wajah Siswa", command=self.mulai_absensi)
-        self.btn_absensi.pack(pady=20)
-
-    def mulai_absensi(self):
+    def absensi_wajah_siswa(self):
+        print("Mulai absensi wajah siswa...")
         absensiWajahSiswa()
+        print("Absensi wajah siswa selesai.")
 
-    def refresh(self):
-        pass
-
-class GuruAbsensiFrame(ctk.CTkFrame):
-    def __init__(self, parent):
-        super().__init__(parent)
-        label = ctk.CTkLabel(self, text="Absensi Wajah Guru", font=ctk.CTkFont(size=20, weight="bold"))
-        label.pack(pady=20)
-
-        self.btn_absensi = ctk.CTkButton(self, text="Mulai Absensi Wajah Guru", command=self.mulai_absensi)
-        self.btn_absensi.pack(pady=20)
-
-    def mulai_absensi(self):
+    def absensi_wajah_guru(self):
+        print("Mulai absensi wajah guru...")
         absensiWajahGuru()
-
-    def refresh(self):
-        pass
+        print("Absensi wajah guru selesai.")
 
 if __name__ == "__main__":
     app = DashboardApp()
