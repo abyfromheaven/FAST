@@ -6,7 +6,8 @@ from datetime import datetime
 import customtkinter as ctk
 import numpy as np
 from config import db_path, latihDir, haarcascadePath
-from notifier import kirim_notifikasi_absensi
+from notifier import kirim_notifikasi_absensi_siswa
+from voice import ucap_dari_file  # Import fungsi suara
 
 face_cascade = cv2.CascadeClassifier(haarcascadePath)
 
@@ -85,14 +86,18 @@ def absensiWajahSiswa():
                         waktu = datetime.now().strftime("%Y-%m-%d")
                         cur.execute("SELECT * FROM absensi WHERE nama = ? AND kelas = ? AND DATE(waktu) = ?", (nama, kelas, waktu))
                         if cur.fetchone() is None:
-                            waktu_full = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                            waktu_full = datetime.now().strftime("%Y %-d %B %H:%M")
                             cur.execute("INSERT INTO absensi (nama, kelas, waktu) VALUES (?, ?, ?)", (nama, kelas, waktu_full))
                             conn.commit()
 
-                            # Kirim notifikasi ke channel ntfy.sh sesuai kelas
-                            kirim_notifikasi_absensi(nama, kelas, waktu_full)
+                            kirim_notifikasi_absensi_siswa(nama, kelas, waktu_full)
 
-                            messagebox.showinfo("Absensi Berhasil", f"{nama} kelas ({kelas}) berhasil absen.")
+                            # Tulis pesan dinamis untuk disuarakan
+                            with open("pesan.txt", "w", encoding="utf-8") as f:
+                                f.write(f"Absensi Berhasil, Siswa {nama} dari kelas {kelas} telah berhasil melakukan absensi.")
+
+                            messagebox.showinfo("Absensi Berhasil", f" Siswa {nama} dari kelas ({kelas}) telah berhasil melakukan absensi.")
+                            ucap_dari_file("pesan siswa.txt")  # Suara diaktifkan di sini
 
                         else:
                             messagebox.showinfo("Info", f"{nama} kelas ({kelas}) sudah absen hari ini.")

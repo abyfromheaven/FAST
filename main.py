@@ -69,86 +69,14 @@ class DashboardApp(ctk.CTk):
 class DashboardPage(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent)
-        self.label_title = ctk.CTkLabel(self, text="Dashboard Overview", font=ctk.CTkFont(size=24, weight="bold"))
-        self.label_title.pack(pady=15)
+        
+        self.label_welcome = ctk.CTkLabel(
+            self, 
+            text="Selamat Datang", 
+            font=ctk.CTkFont(size=28, weight="bold")
+        )
+        self.label_welcome.pack(pady=30)
 
-        # Overview frames
-        self.overview_frame = ctk.CTkFrame(self)
-        self.overview_frame.pack(pady=20, padx=20, fill="x")
-
-        # Student attendance summary
-        self.label_siswa_title = ctk.CTkLabel(self.overview_frame, text="Absensi Siswa Hari Ini", font=ctk.CTkFont(size=18))
-        self.label_siswa_title.grid(row=0, column=0, sticky="w", padx=10, pady=(10,5))
-        self.label_siswa_count = ctk.CTkLabel(self.overview_frame, text="Loading...")
-        self.label_siswa_count.grid(row=1, column=0, sticky="w", padx=10, pady=(0,15))
-
-        # Teacher attendance summary
-        self.label_guru_title = ctk.CTkLabel(self.overview_frame, text="Absensi Guru Hari Ini", font=ctk.CTkFont(size=18))
-        self.label_guru_title.grid(row=0, column=1, sticky="w", padx=30, pady=(10,5))
-        self.label_guru_count = ctk.CTkLabel(self.overview_frame, text="Loading...")
-        self.label_guru_count.grid(row=1, column=1, sticky="w", padx=30, pady=(0,15))
-
-        # Recent Attendance Logs
-        self.label_recent_title = ctk.CTkLabel(self, text="Catatan Absensi Terbaru", font=ctk.CTkFont(size=18))
-        self.label_recent_title.pack(pady=(20, 10))
-
-        self.recent_frame = ctk.CTkFrame(self)
-        self.recent_frame.pack(pady=10, padx=20, fill="x")
-
-        self.recent_logs = ctk.CTkTextbox(self.recent_frame, height=200)
-        self.recent_logs.pack(fill="both", expand=True)
-
-        self.refresh_recent_logs()
-
-    def refresh(self):
-        try:
-            conn = sqlite3.connect(db_path)
-            cur = conn.cursor()
-            today = datetime.now().strftime("%Y-%m-%d")
-
-            cur.execute("SELECT COUNT(DISTINCT nama) FROM absensi WHERE DATE(waktu) = ?", (today,))
-            siswa_count = cur.fetchone()[0] or 0
-
-            cur.execute("SELECT COUNT(DISTINCT nama) FROM absensi_guru WHERE DATE(waktu) = ?", (today,))
-            guru_count = cur.fetchone()[0] or 0
-
-            conn.close()
-        except Exception as e:
-            siswa_count = "Error"
-            guru_count = "Error"
-
-        self.label_siswa_count.configure(text=f"Jumlah siswa yang absen hari ini: {siswa_count}")
-        self.label_guru_count.configure(text=f"Jumlah guru yang absen hari ini: {guru_count}")
-
-    def refresh_recent_logs(self):
-        try:
-            conn = sqlite3.connect(db_path)
-            cur = conn.cursor()
-
-            # Get recent student attendance
-            cur.execute("SELECT nama, kelas, waktu FROM absensi ORDER BY waktu DESC LIMIT 5")
-            siswa_logs = cur.fetchall()
-
-            # Get recent teacher attendance
-            cur.execute("SELECT nama, mapel, waktu FROM absensi_guru ORDER BY waktu DESC LIMIT 5")
-            guru_logs = cur.fetchall()
-
-            conn.close()
-
-            # Clear previous logs
-            self.recent_logs.delete("1.0", ctk.END)
-
-            # Display recent logs
-            self.recent_logs.insert(ctk.END, "Absensi Siswa:\n")
-            for log in siswa_logs:
-                self.recent_logs.insert(ctk.END, f"{log[0]} (Kelas: {log[1]}) - {log[2]}\n")
-
-            self.recent_logs.insert(ctk.END, "\nAbsensi Guru:\n")
-            for log in guru_logs:
-                self.recent_logs.insert(ctk.END, f"{log[0]} (Mata Pelajaran: {log[1]}) - {log[2]}\n")
-
-        except Exception as e:
-            self.recent_logs.insert(ctk.END, "Error loading logs.")
 
 class RekamWajahPage(ctk.CTkFrame):
     def __init__(self, parent):

@@ -5,6 +5,8 @@ from PIL import Image, ImageTk
 from datetime import datetime
 import customtkinter as ctk
 from config import db_path, latihGuruDir, haarcascadePath
+from voice import ucap_dari_file  # import fungsi suara
+from notifier import kirim_notifikasi_absensi_guru
 
 face_cascade = cv2.CascadeClassifier(haarcascadePath)
 
@@ -83,10 +85,19 @@ def absensiWajahGuru():
                         waktu = datetime.now().strftime("%Y-%m-%d")
                         cur.execute("SELECT * FROM absensi_guru WHERE nama = ? AND mapel = ? AND DATE(waktu) = ?", (nama, mapel, waktu))
                         if cur.fetchone() is None:
-                            waktu_full = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                            waktu_full = datetime.now().strftime("%Y %-d %B %H:%M")
                             cur.execute("INSERT INTO absensi_guru (nama, mapel, waktu) VALUES (?, ?, ?)", (nama, mapel, waktu_full))
                             conn.commit()
-                            messagebox.showinfo("Absensi Berhasil", f"{nama} dengan mata pelajaran ({mapel}) berhasil absen.")
+
+                            kirim_notifikasi_absensi_guru(nama, mapel, waktu_full)
+
+                            # Tambahkan suara absensi berhasil
+                            with open("pesan_guru.txt", "w", encoding="utf-8") as f:
+                                f.write(f"Absensi Berhasil, Guru {nama} dengan mata pelajaran {mapel} telah berhasil melakukan absensi.")
+
+                            messagebox.showinfo("Absensi Berhasil", f"Guru {nama} dengan mata pelajaran ({mapel}) telah berhasil melakukan absensi.")
+                            ucap_dari_file("pesan_guru.txt")  # panggil fungsi suara
+
                         else:
                             messagebox.showinfo("Info", f"{nama} dengan mata pelajaran ({mapel}) sudah absen hari ini.")
                         cam.release()
