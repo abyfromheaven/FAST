@@ -1,0 +1,9 @@
+customtkinter
+opencv-contrib-python
+pyttsx3
+requests
+gtts
+playsound
+pillow
+numpy
+tkinter
