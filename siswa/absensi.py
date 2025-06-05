@@ -43,9 +43,34 @@ def absensiWajahSiswa():
     cam = cv2.VideoCapture(0)
     face_detected_counter = 0
     target_counter = 30
+    running = True
+
+    def selesai_absen(nama, kelas, waktu_full):
+        """Dipanggil saat absensi berhasil"""
+        kirim_notifikasi_absensi_siswa(nama, kelas, waktu_full)
+
+        with open("pesan_siswa.txt", "w", encoding="utf-8") as f:
+            f.write(f"Absensi diterima. {nama} dari kelas {kelas}, semoga harimu penuh prestasi!")
+
+        def lanjut_setelah_messagebox():
+            ucap_dari_file("pesan_siswa.txt")
+            window.destroy()
+
+        messagebox.showinfo("Absensi Diterima", f"Siswa {nama} dari kelas ({kelas}) telah melakukan absensi.")
+        window.after(100, lanjut_setelah_messagebox)
+
+    def info_sudah_absen(nama, kelas):
+        """Jika sudah absen hari ini"""
+        def lanjut():
+            window.destroy()
+        messagebox.showinfo("Info", f"{nama} kelas ({kelas}) sudah absen hari ini.")
+        window.after(100, lanjut)
 
     def update_frame():
-        nonlocal face_detected_counter
+        nonlocal face_detected_counter, running
+        if not running:
+            return
+
         ret, frame = cam.read()
         if not ret:
             return
@@ -56,17 +81,21 @@ def absensiWajahSiswa():
         if len(faces) > 0:
             (x, y, w, h) = faces[0]
             id_predicted, conf = recognizer.predict(gray[y:y+h, x:x+w])
+
             if conf < 100:
                 cur.execute("SELECT nama, kelas FROM siswa WHERE id = ?", (id_predicted,))
                 result = cur.fetchone()
+
                 if result:
                     nama, kelas = result
                     face_detected_counter += 1
 
-                    progressbar.set(face_detected_counter / target_counter)
-                    progress_persen = int((face_detected_counter / target_counter) * 100)
-                    progress_label.configure(text=f"Progres: {progress_persen}%")
+                    # Update Progress
+                    progress = face_detected_counter / target_counter
+                    progressbar.set(progress)
+                    progress_label.configure(text=f"Progres: {int(progress * 100)}%")
 
+                    # Tampilkan Nama & Kelas
                     font = cv2.FONT_HERSHEY_SIMPLEX
                     font_scale = 0.7
                     thickness = 2
@@ -82,39 +111,33 @@ def absensiWajahSiswa():
                     cv2.putText(frame, kelas, (x_rect, y_rect + size2[1] + spacing),
                                 font, font_scale, (255, 255, 255), thickness)
 
+                    # Jika progress penuh, lakukan absensi
                     if face_detected_counter >= target_counter:
-                        waktu = datetime.now().strftime("%Y-%m-%d")
-                        cur.execute("SELECT * FROM absensi WHERE nama = ? AND kelas = ? AND DATE(waktu) = ?", (nama, kelas, waktu))
+                        running = False
+                        cam.release()
+
+                        tanggal = datetime.now().strftime("%Y-%m-%d")
+                        cur.execute("SELECT * FROM absensi WHERE nama = ? AND kelas = ? AND DATE(waktu) = ?", (nama, kelas, tanggal))
                         if cur.fetchone() is None:
                             waktu_full = datetime.now().strftime("%Y %-d %B %H:%M")
                             cur.execute("INSERT INTO absensi (nama, kelas, waktu) VALUES (?, ?, ?)", (nama, kelas, waktu_full))
                             conn.commit()
-
-                            kirim_notifikasi_absensi_siswa(nama, kelas, waktu_full)
-
-                            # Tulis pesan dinamis untuk disuarakan
-                            with open("pesan.txt", "w", encoding="utf-8") as f:
-                                f.write(f"Absensi Berhasil, Siswa {nama} dari kelas {kelas} telah berhasil melakukan absensi.")
-
-                            messagebox.showinfo("Absensi Berhasil", f" Siswa {nama} dari kelas ({kelas}) telah berhasil melakukan absensi.")
-                            ucap_dari_file("pesan siswa.txt")  # Suara diaktifkan di sini
-
+                            selesai_absen(nama, kelas, waktu_full)
                         else:
-                            messagebox.showinfo("Info", f"{nama} kelas ({kelas}) sudah absen hari ini.")
-                        cam.release()
-                        window.destroy()
+                            info_sudah_absen(nama, kelas)
                         return
             else:
                 face_detected_counter = 0
         else:
             face_detected_counter = 0
 
+        # Update UI
         progressbar.set(face_detected_counter / target_counter)
-        progress_persen = int((face_detected_counter / target_counter) * 100)
-        progress_label.configure(text=f"Progres: {progress_persen}%")
+        progress_label.configure(text=f"Progres: {int((face_detected_counter / target_counter) * 100)}%")
 
+        # Tampilkan video
         for (x, y, w, h) in faces:
-            cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 6)
+            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 6)
 
         img_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         img_pil = Image.fromarray(img_rgb)

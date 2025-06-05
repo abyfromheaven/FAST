@@ -93,9 +93,9 @@ def absensiWajahGuru():
 
                             # Tambahkan suara absensi berhasil
                             with open("pesan_guru.txt", "w", encoding="utf-8") as f:
-                                f.write(f"Absensi Berhasil, Guru {nama} dengan mata pelajaran {mapel} telah berhasil melakukan absensi.")
+                                f.write(f"Absensi Diterima, Guru {nama} dengan mata pelajaran {mapel} telah berhasil melakukan absensi.")
 
-                            messagebox.showinfo("Absensi Berhasil", f"Guru {nama} dengan mata pelajaran ({mapel}) telah berhasil melakukan absensi.")
+                            messagebox.showinfo("Absensi Berhasil", f"Guru {nama} dengan mata pelajaran ({mapel}) telah melakukan absensi.")
                             ucap_dari_file("pesan_guru.txt")  # panggil fungsi suara
 
                         else:
