@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Absensi Wajah</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>FAST (Face Attendance Scan Technology)</h1>
+      <nav>
+        <a href="index.html">Beranda</a>
+        <a href="fitur.html">Fitur</a>
+        <a href="kontak.html">Kontak</a>
+        <a href="presentasi.html">Tentang Aplikasi</a>
+      </nav>
+    </header>
+
+    <video autoplay muted loop id="bg-video">
+      <source src="media/background.mp4" type="video/mp4" />
+      Browser Anda tidak mendukung video latar belakang.
+    </video>
+
+    <section class="hero">
+      <h2>Absensi Lebih Canggih dengan Scan Wajah</h2>
+      <p>
+        Gunakan teknologi pengenalan wajah untuk sistem absensi yang akurat,
+        cepat, dan aman. Cocok untuk sekolah, kantor, dan instansi lainnya.
+      </p>
+      <a class="btn" href="pesan.html">🛒 Pesan Sekarang</a>
+      <a class="btn" href="step-by-step.html">📋 Langkah-langkah Menggunakan Aplikasi FAST</a>      
+    </section>
+
+    <section class="features" id="fitur">
+      <a href="fitur.html" class="card">
+        <h3>Pengenalan Wajah Otomatis</h3>
+        <p>Identifikasi kehadiran tanpa sentuhan dan tanpa kartu.</p>
+      </a>
+      <a href="fitur.html" class="card">
+        <h3>Riwayat Absensi Lengkap</h3>
+        <p>Data tersimpan aman dan dapat diakses kapan saja.</p>
+      </a>
+      <a href="fitur.html" class="card">
+        <h3>Integrasi Kamera Webcam</h3>
+        <p>Bisa digunakan dengan kamera biasa atau webcam laptop.</p>
+      </a>
+      <a href="fitur.html" class="card">
+        <h3>Dashboard Admin</h3>
+        <p>Pantau statistik kehadiran dengan grafik dan filter canggih.</p>
+      </a>
+    </section>
+
+    <footer id="kontak">
+      <p>
+        &copy; 2025 FAST Dikembangkan dengan teknologi modern untuk Mempermudah
+        absensi Anda.
+      </p>
+    </footer>
+
+    <script>
+      // Efek interaksi tambahan dapat ditambahkan di sini
+      window.addEventListener("scroll", () => {
+        document.querySelector("header").style.boxShadow =
+          window.scrollY > 50 ? "0 4px 10px rgba(0,0,0,0.3)" : "none";
+      });
+    </script>
+  </body>
+</html>

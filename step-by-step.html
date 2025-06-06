@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panduan Penggunaan FAST</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+ .step {
+  background-color: #ffffffcc;
+  margin: 40px auto;
+  padding: 30px;
+  max-width: 800px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.7s ease-out;
+}
+
+.step.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+      .step h3 {
+        margin-bottom: 10px;
+        font-size: 24px;
+        color: #333;
+      }
+
+      .step p {
+        font-size: 18px;
+        line-height: 1.6;
+        color: #444;
+      }
+
+      .step img {
+        margin-top: 20px;
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Panduan Penggunaan FAST</h1>
+      <nav>
+        <a href="index.html">Kembali ke Beranda</a>
+      </nav>
+    </header>
+
+    <video autoplay muted loop id="bg-video">
+      <source src="media/background.mp4" type="video/mp4" />
+      Browser Anda tidak mendukung video latar belakang.
+    </video>
+
+    <section class="hero">
+      <h2>Langkah-langkah Menggunakan Aplikasi FAST</h2>
+      <p>Ikuti setiap langkah berikut untuk melakukan absensi wajah dengan benar.</p>
+    </section>
+
+<!-- Langkah 1 -->
+<section class="step">
+  <h3>1. 📦 Persiapan Awal</h3>
+  <p><strong>✅ Sistem yang Dibutuhkan:</strong><br>
+    OS: Windows 10 atau 11 (64-bit)<br>
+    Python 3.9+ (harus diinstal)<br>
+    Webcam aktif<br>
+    Akses internet (untuk notifikasi ntfy.sh jika digunakan)
+  </p>
+</section>
+
+<!-- Langkah 2 -->
+<section class="step">
+  <h3>2. 🔽 Download dan Install Python</h3>
+  <p>
+    1. Kunjungi <a href="https://python.org/downloads" target="_blank">https://python.org/downloads</a><br>
+    2. Pilih versi terbaru (misalnya Python 3.12.x)<br>
+    3. Saat instalasi:<br>
+    - Centang “Add Python to PATH”<br>
+    - Klik “Install Now”
+  </p>
+</section>
+
+<!-- Langkah 3 -->
+<section class="step">
+  <h3>3. 📁 Unduh Proyek FAST</h3>
+  <p>
+    1. Buka GitHub: <a href="https://github.com/abyfromheaven/FAST" target="_blank">github.com/abyfromheaven/FAST</a><br>
+    2. Klik tombol <em>Code</em> → <em>Download ZIP</em><br>
+    3. Ekstrak ZIP ke folder mana saja (misalnya <code>C:\FAST</code>)
+  </p>
+</section>
+
+<!-- Langkah 4 -->
+<section class="step">
+  <h3>4. 🧪 Install Library yang Dibutuhkan</h3>
+  <p>
+    Buka Command Prompt (CMD), lalu jalankan:<br>
+    <code>cd C:\FAST</code><br>
+    <code>pip install -r requirements.txt</code><br><br>
+    Jika tidak ada file <code>requirements.txt</code>, gunakan:<br>
+    <code>pip install customtkinter opencv-python pyttsx3 requests</code>
+  </p>
+</section>
+
+<!-- Langkah 5 -->
+<section class="step">
+  <h3>5. 🎤 Test Text-to-Speech (Opsional)</h3>
+  <p>
+    FAST memakai <code>pyttsx3</code> untuk suara notifikasi.<br>
+    Windows sudah mendukung ini secara bawaan lewat SAPI5,<br>
+    jadi tidak perlu install tambahan.
+  </p>
+</section>
+
+<!-- Langkah 6 -->
+<section class="step">
+  <h3>6. 🚀 Jalankan Aplikasinya</h3>
+  <p>
+    Masih di Command Prompt:<br>
+    <code>python main.py</code><br><br>
+    Tunggu beberapa saat hingga GUI aplikasi terbuka.<br>
+    Kamu akan melihat antarmuka modern dari FAST.
+  </p>
+</section>
+
+<!-- Langkah 7 -->
+<section class="step">
+  <h3>7. 🎯 Fitur yang Bisa Digunakan</h3>
+  <p>
+    <strong>Menu – Fungsi:</strong><br><br>
+    🎥 <strong>Rekam Wajah Siswa</strong>: Menyimpan wajah siswa untuk pelatihan model<br>
+    🎥 <strong>Rekam Wajah Guru</strong>: Menyimpan wajah guru untuk pelatihan model<br>
+    🧠 <strong>Latih Model</strong>: Melatih model pengenalan wajah<br>
+    📝 <strong>Absensi Siswa</strong>: Deteksi wajah siswa dan catat waktu kehadiran<br>
+    📝 <strong>Absensi Guru</strong>: Sama seperti siswa, untuk guru<br>
+    🔔 <strong>Notifikasi</strong>: Kirim notifikasi otomatis ke ntfy.sh (jika diaktifkan)
+  </p>
+</section>
+
+<!-- Langkah 8 -->
+<section class="step">
+  <h3>8. 🔔 Notifikasi Real-Time (Opsional)</h3>
+  <p>
+    Jika menggunakan ntfy.sh, notifikasi akan dikirim ke channel khusus.<br><br>
+    1. Buka file <code>main.py</code><br>
+    2. Temukan dan ubah bagian berikut:<br>
+    <code>ntfy_url = "https://ntfy.sh/fast-absensi-channel"</code><br>
+    3. Buka <a href="https://ntfy.sh/fast-absensi-channel" target="_blank">ntfy.sh/fast-absensi-channel</a> di HP/browser untuk menerima pesan.
+  </p>
+</section>
+
+<!-- Langkah 9 -->
+<section class="step">
+  <h3>9. ❗ Jika Terjadi Masalah</h3>
+  <p>
+    <strong>Masalah – Solusi:</strong><br><br>
+    📷 Kamera tidak muncul – Tutup aplikasi lain yang pakai webcam<br>
+    🔇 Tidak ada suara – Periksa volume & pastikan SAPI aktif<br>
+    ❌ "Module not found" – Jalankan <code>pip install</code> untuk modul tersebut<br>
+    📂 File tidak ditemukan – Jalankan CMD di folder yang benar (<code>cd C:\FAST</code>)
+  </p>
+</section>
+
+<!-- Langkah 10 -->
+<section class="step">
+  <h3>10. 💡 Tips Tambahan</h3>
+  <p>
+    🔐 Jalankan sebagai Administrator jika ada error permission<br>
+    ⚠️ Jangan ubah nama file <code>haarcascade_frontalface_default.xml</code><br>
+    💡 Untuk hasil terbaik, pastikan wajah terang dan terlihat jelas di kamera
+  </p>
+</section>
+
+
+    <footer>
+      <p>&copy; 2025 FAST – Sistem Absensi Wajah Modern</p>
+    </footer>
+
+    <script>
+        window.addEventListener("scroll", () => {
+          document.querySelector("header").style.boxShadow =
+            window.scrollY > 50 ? "0 4px 10px rgba(0,0,0,0.3)" : "none";
+        });
+      
+        const steps = document.querySelectorAll(".step");
+      
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("show");
+            } else {
+              entry.target.classList.remove("show"); // biar bisa animasi lagi saat masuk ulang
+            }
+          });
+        }, {
+          threshold: 0.15
+        });
+      
+        steps.forEach((step) => observer.observe(step));
+      </script>
+      
+  </body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FAST - Face Attendance Scan Technology</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <style>
+    /* Reset dan Font */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* Body Styling */
+    body {
+      background: radial-gradient(circle at center, #0f2027, #203a43, #2c5364);
+      color: #f0f0f0;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Efek Latar */
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: radial-gradient(circle, rgba(241, 196, 15, 0.1) 2px, transparent 2px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      animation: floatBackground 10s linear infinite;
+    }
+
+    @keyframes floatBackground {
+      0% { background-position: 0 0; }
+      100% { background-position: 100px 100px; }
+    }
+
+    /* Kontainer Utama */
+    .wrapper {
+      max-width: 1000px;
+      margin: 60px auto;
+      padding: 60px 30px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(8px);
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Judul */
+    h1 {
+      text-align: center;
+      font-size: 3rem;
+      color: #f1c40f;
+      margin-bottom: 30px;
+      animation: fadeDown 1s ease;
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      color: #f39c12;
+      margin-top: 40px;
+      margin-bottom: 10px;
+    }
+
+    h3 {
+      margin-top: 30px;
+      color: #f1c40f;
+    }
+
+    /* Teks */
+    p, li {
+      font-size: 1.1rem;
+      color: #e6e6e6;
+      line-height: 1.8;
+    }
+
+    /* Daftar Fitur */
+    ul.features {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+      list-style: none;
+      padding-left: 0;
+    }
+
+    ul.features li {
+      background: rgba(255, 255, 255, 0.07);
+      padding: 15px 20px;
+      border-radius: 12px;
+      backdrop-filter: blur(4px);
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.7s ease-out;
+    }
+
+    ul.features li.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    ul.features li:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    /* Tombol */
+    .btn {
+      display: block;
+      background: linear-gradient(45deg, #f1c40f, #f39c12, #f1c40f);
+      color: #2c3e50;
+      padding: 16px 32px;
+      font-weight: 600;
+      font-size: 17px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 0 100px #f1c40f, 0 0 20px #f39c12;
+      animation: glow 2.5s ease-in-out infinite alternate;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      text-decoration: none;
+      margin: 40px auto 0;
+      width: fit-content;
+    }
+
+    .btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px #f1c40f, 0 0 30px #f39c12, 0 0 40px #f39c12;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      color: #ccc;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <h1>🧩 Teknologi yang Digunakan dalam FAST</h1>
+
+    <h3>🔧 Bahasa dan Framework</h3>
+    <ul class="features">
+      <li class="step"><strong>Python</strong><br>Bahasa pemrograman utama untuk logika backend dan GUI aplikasi.</li>
+      <li class="step"><strong>CustomTkinter</strong><br>Framework GUI berbasis Tkinter dengan tampilan modern (dark mode, widget elegan).</li>
+      <li class="step"><strong>OpenCV (cv2)</strong><br>Digunakan untuk: Deteksi wajah real-time via webcam.
+
+Pelatihan model pengenalan wajah (LBPH).
+
+Pengolahan citra wajah pengguna.
+        <ul>
+          <li>Deteksi wajah real-time via webcam.</li>
+          <li>Pelatihan model pengenalan wajah (LBPH).</li>
+          <li>Pengolahan citra wajah pengguna.</li>
+        </ul>
+      </li>
+      <li class="step"><strong>SQLite3 (Database Lokal)</strong><br>Database lokal bawaan Python untuk menyimpan: Data pengguna (siswa & guru).
+
+Riwayat absensi berdasarkan waktu dan identitas.
+        <ul>
+          <li>Data pengguna (siswa & guru).</li>
+          <li>Riwayat absensi berdasarkan waktu dan identitas.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h3>🔊 Modul Tambahan</h3>
+    <ul class="features">
+      <li class="step"><strong>pyttsx3</strong><br>Text-to-speech (TTS) engine untuk memberikan notifikasi suara ketika pengguna berhasil melakukan absensi.</li>
+    </ul>
+
+    <h3>📦 Modul Python Standar</h3>
+    <ul class="features">
+      <li class="step"><strong>os</strong> – untuk mengelola folder, path file, dan operasi sistem.</li>
+      <li class="step"><strong>cv2.face</strong> – modul khusus dari OpenCV untuk model LBPHFaceRecognizer.</li>
+      <li class="step"><strong>datetime</strong> – mencatat waktu dan tanggal saat absensi.</li>
+      <li class="step"><strong>threading</strong> – untuk menjalankan webcam secara paralel (tidak mengganggu GUI).</li>
+      <li class="step"><strong>shutil</strong> – memindahkan atau menghapus folder jika diperlukan.</li>
+      <li class="step"><strong>tkinter.messagebox</strong> – memberikan notifikasi (popup) ke pengguna saat ada pesan/error.</li>
+    </ul>
+
+ <h3>📡 Notifikasi Otomatis</h3>
+<ul class="features">
+  <li class="step"><strong><a href="https://ntfy.sh/" target="_blank" style="color: #f1c40f; text-decoration: underline;">ntfy.sh 🔔</a></strong><br>
+    Sistem notifikasi push berbasis HTTP untuk mengirim notifikasi real-time ke perangkat setelah absensi.
+    Mendukung channel publik maupun privat, bisa dipantau dari browser atau aplikasi ntfy.
+  </li>
+</ul>
+
+
+    <h3>🧠 Algoritma Machine Learning</h3>
+    <ul class="features">
+      <li class="step"><strong>LBPH (Local Binary Pattern Histogram)</strong><br>
+        Digunakan sebagai metode pengenalan wajah — ringan, cepat, dan cocok untuk lingkungan sekolah atau kantor.
+      </li>
+      <li class="step"><strong>Haar Cascade Classifier</strong><br>
+        Algoritma klasik deteksi wajah menggunakan <code>haarcascade_frontalface_default.xml</code>.
+      </li>
+    </ul>
+
+    <button type="button" class="btn" onclick="window.location.href='index.html'">⬅ Kembali ke Beranda</button>
+
+    <footer>
+      &copy; 2025 FAST - Face Attendance Scan Technology | Dibuat oleh Kelompok 6 IPAS
+    </footer>
+  </div>
+
+  <script>
+    const steps = document.querySelectorAll(".step");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+        } else {
+          entry.target.classList.remove("show");
+        }
+      });
+    }, { threshold: 0.5 });
+
+    steps.forEach((step, i) => {
+      step.style.transitionDelay = `${i * 0.1}s`;
+      observer.observe(step);
+    });
+  </script>
+</body>
+</html>

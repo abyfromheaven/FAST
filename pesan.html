@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FAST - Face Attendance Scan Technology</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg, #2c3e50, #3498db);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+    }
+
+    .hero {
+      text-align: center;
+      animation: fadeIn 2s ease-in-out;
+      padding: 20px;
+    }
+
+    .hero h2 {
+      font-size: 46px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      background: linear-gradient(to right, #fffb03, #e7c60d);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 20px;
+      max-width: 700px;
+      margin: 0 auto 30px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 25px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 30px;
+      font-size: 16px;
+      cursor: pointer;
+      text-decoration: none;
+      min-width: 180px;
+      text-align: center;
+    }
+
+    .btn.download {
+      background: linear-gradient(45deg, #f1c40f, #f39c12, #f1c40f);
+      color: #2c3e50;
+      padding: 18px 40px;
+      font-weight: 600;
+      box-shadow: 0 0 10px #f1c40f, 0 0 20px #f39c12;
+      animation: glow 2.5s ease-in-out infinite alternate;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .btn.download:hover {
+      transform: scale(1.12);
+      box-shadow: 0 0 20px #f1c40f, 0 0 30px #f39c12, 0 0 40px #f39c12;
+    }
+
+    .btn.donate {
+      background: linear-gradient(45deg, #e67e22, #d35400, #e67e22);
+      color: white;
+      padding: 16px 36px;
+      font-weight: 600;
+      box-shadow: 0 0 8px #e67e22, 0 0 15px #d35400;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .btn.donate:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px #e67e22, 0 0 30px #d35400;
+    }
+
+    .btn.back {
+      background: #34495e;
+      color: #ecf0f1;
+      padding: 14px 32px;
+      box-shadow: none;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .btn.back:hover {
+      background: #2c3e50;
+      transform: scale(1.05);
+    }
+
+    @keyframes glow {
+      from {
+        box-shadow: 0 0 10px #f1c40f, 0 0 20px #f39c12;
+      }
+      to {
+        box-shadow: 0 0 20px #f1c40f, 0 0 30px #f39c12, 0 0 40px #f39c12;
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .hero h2 {
+        font-size: 32px;
+      }
+      .btn {
+        padding: 12px 20px;
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<section class="hero">
+  <h2>Pemesanan Aplikasi FAST</h2>
+  <p>Dapatkan kemudahan absensi! Teknologi pengenalan wajah kami siap membantu pencatatan kehadiran yang lebih cepat dan akurat.</p>
+  <p>Anda juga bisa mendukung pengembangan aplikasi ini dengan berdonasi melalui Dana. Setiap donasi sangat berarti bagi kami.</p>
+  
+  <div class="actions">
+    <a href="pembelian.html" class="btn download">⬇ Pesan Aplikasi</a>
+    <a href="qr code.html" class="btn donate">❤️ Donasi via Dana</a>
+  </div>
+
+<div style="margin-top: 20px;">
+<button class="btn back" onclick="window.location.href='index.html'">← Kembali</button>
+</div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fitur Unggulan FAST</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+/* Navbar Glassmorphism */
+header {
+  position: sticky;
+  top: 0;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 1000;
+  font-family: 'Poppins', sans-serif;
+}
+
+header h1 {
+  color: #f1c40f;
+  font-weight: 600;
+  font-size: 28px;
+  margin: 0;
+}
+
+header nav a {
+  color: #eee;
+  text-decoration: none;
+  font-weight: 300;
+  font-size: 16px;
+  padding: 8px 16px;
+  border-radius: 12px;
+  transition: 0.3s ease;
+}
+
+header nav a:hover {
+  background: rgba(241, 196, 15, 0.2);
+  color: #f1c40f;
+}
+
+/* Section fitur */
+.fitur-section {
+  padding: 80px 30px;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+  animation: fadeIn 1.5s ease-in-out;
+  font-family: 'Poppins', sans-serif;
+}
+
+.fitur-section h2 {
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 50px;
+  animation: slideInLeft 1.5s ease;
+  color: #f1c40f;
+  font-weight: 600;
+}
+
+/* Grid lebar dan fleksibel */
+.fitur-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+/* Card kotak rapi */
+.fitur-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  overflow: hidden;
+  padding: 20px;
+  text-align: center;
+  animation: fadeInUp 1.2s ease;
+  transition: transform 0.3s ease, background 0.3s ease;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.fitur-card:hover {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.fitur-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.fitur-card h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #f1c40f;
+  font-weight: 600;
+}
+
+.fitur-card p {
+  font-size: 15px;
+  color: #eee;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+/* Animasi */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+
+
+
+
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>FAST</h1>
+      <nav>
+        <a href="index.html">Kembali ke Beranda</a>
+      </nav>
+    </header>
+
+    <section class="fitur-section">
+      <h2>Apa saja Fitur nya?</h2>
+<h2>🧩 Penjelasan Tiap Komponen Sistem</h2>
+<div class="fitur-grid">
+  <div class="fitur-card">
+    <h3>📸 Perekaman Wajah</h3>
+    <p>User memilih menu <strong>Rekam Wajah</strong> untuk siswa atau guru.<br />
+    Webcam menyala dan sistem otomatis mendeteksi wajah.<br />
+    Dataset wajah disimpan ke folder sesuai nama atau ID pengguna.</p>
+  </div>
+
+  <div class="fitur-card">
+    <h3>🧠 Pelatihan Model Wajah</h3>
+    <p>Pada menu <strong>Latih Model</strong>, sistem membaca seluruh dataset wajah.<br />
+    Model LBPH dilatih dan disimpan sebagai <code>model.yml</code>.</p>
+  </div>
+
+  <div class="fitur-card">
+    <h3>🕵️‍♂️ Absensi Wajah Otomatis</h3>
+    <p>Memilih menu <strong>Absensi</strong> untuk siswa atau guru.<br />
+    Sistem mendeteksi dan mengenali wajah menggunakan model yang sudah dilatih.<br />
+    Jika deteksi stabil:<br />
+    • Absensi dicatat ke database SQLite<br />
+    • Nama disebut lewat TTS (offline)<br />
+    • Notifikasi dikirim via <code>ntfy.sh</code><br />
+    • GUI menampilkan konfirmasi sukses</p>
+  </div>
+
+  <div class="fitur-card">
+    <h3>🔁 Deteksi Stabil dengan Progress Bar</h3>
+    <p>Sebelum mencatat absensi, sistem memastikan wajah stabil lewat <strong>progress bar</strong> (0–100%).<br />
+    Jika wajah goyah atau blur, progress akan di-reset.</p>
+  </div>
+
+  <div class="fitur-card">
+    <h3>🗃️ Pencatatan Absensi</h3>
+    <p>Semua data absensi tercatat ke <strong>SQLite3</strong> lengkap:<br />
+    • Nama pengguna<br />
+    • Role (Siswa/Guru)<br />
+    • Tanggal & Waktu<br />
+    • Status Kehadiran</p>
+  </div>
+
+  <div class="fitur-card">
+    <h3>🔔 Notifikasi ke ntfy.sh</h3>
+    <p>Sistem mengirim notifikasi real-time melalui <code>ntfy.sh/[channel]</code> berisi siapa yang absen.<br />
+    Bisa diterima lewat aplikasi ntfy, notifikasi browser, atau integrasi ke Discord/Slack.</p>
+  </div>
+</div>
+
+
+    </section>
+  </body>
+</html>

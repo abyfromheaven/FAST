@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Donasi - FAST</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #2c3e50, #3498db);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    header {
+      padding: 20px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      animation: fadeInDown 1s ease-out;
+    }
+
+    header h1 {
+      font-size: 28px;
+    }
+
+    header {
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 15px 0;
+    position: relative;
+    z-index: 1000;
+  }
+
+  .marquee {
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .marquee span {
+    display: inline-block;
+    padding-left: 100%;
+    animation: scroll-left 15s linear infinite;
+    font-size: 1.2rem;
+    color: #f1c40f;
+    font-weight: bold;
+  }
+
+  @keyframes scroll-left {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+    nav a {
+      color: white;
+      margin-left: 30px;
+      text-decoration: none;
+      font-weight: 300;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #f1c40f;
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 80px 20px;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .hero h2 {
+      font-size: 48px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      animation: slideInLeft 1.2s ease-in-out;
+    }
+
+    .hero p {
+      font-size: 18px;
+      max-width: 600px;
+      margin-bottom: 40px;
+      animation: slideInRight 1.2s ease-in-out;
+    }
+
+    .actions {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      background: #f1c40f;
+      color: #2c3e50;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 30px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.3s ease, background 0.3s;
+      text-decoration: none;
+      min-width: 180px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn i {
+      margin-right: 10px;
+    }
+
+    .btn:hover {
+      transform: scale(1.08);
+      background: #ffe066;
+    }
+
+    footer {
+      padding: 20px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.2);
+      margin-top: 40px;
+    }
+
+    .qr-donasi {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 60px 20px;
+      text-align: center;
+    }
+
+    .qr-donasi img {
+      width: 280px;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      margin-top: 20px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideInLeft {
+      from { transform: translateX(-100px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes slideInRight {
+      from { transform: translateX(100px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    @media (max-width: 500px) {
+      .hero h2 {
+        font-size: 32px;
+      }
+      .btn {
+        padding: 12px 20px;
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="marquee">
+      <span>🚀 FAST - Face Attendance Scan Technology 🚀</span>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h2>Donasi untuk Pengembangan FAST</h2>
+    <p>Dengan dukungan Anda, kami dapat terus mengembangkan teknologi absensi berbasis wajah yang aman dan efisien. Setiap kontribusi sangat berarti!</p>
+  </section>
+
+  <section class="actions">
+    <a class="btn" href="pesan.html"><i>⬅️</i> Kembali ke Beranda</a>
+  </section>
+
+  <section class="qr-donasi">
+    <h3>Scan QR untuk Donasi via DANA</h3>
+    <img src="media/qr code.jpeg" alt="QR Code DANA">
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Sistem Absensi Cerdas. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
