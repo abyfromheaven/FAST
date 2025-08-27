@@ -7,14 +7,6 @@
 
 ---
 
-### 🖼️ Tampilan Aplikasi
-
-*(Gantilah baris ini dengan screenshot aplikasi Anda. Cukup drag & drop gambar ke area teks ini di GitHub)*
-
-![Screenshot Aplikasi FAST](placeholder.png)
-
----
-
 ### ✨ Fitur Utama
 
 - **Manajemen User Terpisah**: Sistem dapat mengelola data untuk **Siswa** dan **Guru** secara terpisah, termasuk data kelas untuk siswa dan mata pelajaran untuk guru.
@@ -57,9 +49,6 @@ Untuk menjalankan proyek ini dari source code, ikuti langkah-langkah berikut:
    # Buat virtual environment (opsional tapi direkomendasikan)
    python -m venv abyenv
 
-   # Aktifkan virtual environment
-   # Windows
-   .\abyenv\Scripts\activate
    # Linux / macOS
    source abyenv/bin/activate
 
