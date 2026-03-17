@@ -1,106 +1,107 @@
-# FAST - Face Attendance Scan Technology
+# 🛡️ FAST - Face Attendance Scan Technology
 
-![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)
-![License](https://img.shields.io/badge/License-MIT-green.svg)
+<div align="center">
 
-**FAST (Face Attendance Scan Technology)** adalah aplikasi absensi desktop modern yang memanfaatkan teknologi pengenalan wajah. Dibangun dengan Python dan CustomTkinter, aplikasi ini menyediakan solusi yang efisien dan terstruktur untuk mencatat kehadiran siswa dan guru.
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg?style=for-the-badge&logo=python)
+![OpenCV](https://img.shields.io/badge/OpenCV-4.x-green.svg?style=for-the-badge&logo=opencv)
+![License](https://img.shields.io/badge/License-MIT-orange.svg?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Active-brightgreen.svg?style=for-the-badge)
+
+**FAST (Face Attendance Scan Technology)** adalah solusi absensi desktop modern berbasis pengenalan wajah.  
+Dibuat dengan Python dan CustomTkinter untuk memberikan pengalaman pengguna yang elegan dan efisien.
+
+---
+
+### 📱 Preview Aplikasi
+![Preview Aplikasi](assets/media/preview.jpg)
+
+</div>
 
 ---
 
 ### ✨ Fitur Utama
 
-- **Manajemen User Terpisah**: Sistem dapat mengelola data untuk **Siswa** dan **Guru** secara terpisah, termasuk data kelas untuk siswa dan mata pelajaran untuk guru.
-- **Registrasi Wajah Cerdas**: Proses pendaftaran wajah yang mudah dengan **ID Wajah (Face ID) yang dibuat secara otomatis** dan acak untuk memastikan keunikan.
-- **Absensi Real-time**: Melakukan absensi secara langsung melalui kamera dengan menampilkan nama pengguna yang dikenali.
-- **Database Terstruktur**: Menggunakan SQLite dengan skema yang dinormalisasi (4 tabel) untuk menyimpan data user dan catatan kehadiran secara terpisah dan rapi.
-- **Antarmuka Modern**: GUI yang bersih dan intuitif dibangun menggunakan library CustomTkinter.
-- **Logging Proses**: Semua aktivitas penting seperti registrasi, training, dan error dicatat di terminal untuk kemudahan debugging.
+- **👤 Manajemen User Terpisah**: Mendukung data untuk **Siswa** (dengan kelas) dan **Guru** (dengan mata pelajaran).
+- **🆔 Registrasi Wajah Cerdas**: Pembuatan **Face ID otomatis** yang unik untuk setiap pengguna.
+- **⚡ Absensi Real-time**: Deteksi dan rekognisi wajah langsung via kamera dengan feedback instan.
+- **🗄️ Database Terstruktur**: Menggunakan SQLite dengan skema 4 tabel yang ternomalisasi.
+- **🎨 Antarmuka Modern**: UI bersih dan responsif menggunakan **CustomTkinter**.
+- **📜 Logging Sistem**: Pencatatan aktivitas registrasi, training, dan error di terminal.
 
 ---
 
-### 🛠️ Teknologi yang Digunakan
+### 📂 Struktur Proyek Terorganisir
 
-- **Python 3.10+**
-- **OpenCV-Python**: Untuk semua proses pengolahan gambar dan pengenalan wajah (LBPH).
-- **CustomTkinter**: Untuk membangun antarmuka pengguna (GUI) yang modern.
-- **Pillow (PIL)**: Untuk manipulasi gambar saat proses training.
-- **SQLite3**: Sebagai database file-based yang ringan dan portabel.
+```text
+FAST/
+├── 📂 assets/              # Aset aplikasi (apk, media, resource)
+│   ├── 📂 apk/             # File instalasi Android (.apk)
+│   ├── 📂 media/           # Video latar belakang dan gambar preview
+│   └── 📂 resources/       # Model Haar Cascade dan file teks pesan
+├── 📂 data/                # Penyimpanan data lokal
+│   ├── 📂 datasets/        # Folder gambar wajah hasil registrasi
+│   ├── 📂 models/          # File model hasil training (.xml)
+│   └── 📄 facesentry.db    # Database SQLite
+├── 📂 src/                 # Kode sumber utama (Python)
+│   ├── 📂 services/        # Logika database dan face recognition
+│   ├── 📄 main.py          # Logika utama GUI
+│   └── 📄 config.py        # Konfigurasi path dan parameter
+├── 📂 web/                 # Landing page dan dokumentasi web
+└── 📄 run.py               # Entry point untuk menjalankan aplikasi
+```
 
 ---
 
-### 🚀 Instalasi & Penggunaan
+### 🚀 Instalasi & Cara Menjalankan
 
-Untuk menjalankan proyek ini dari source code, ikuti langkah-langkah berikut:
+Ikuti langkah-langkah di bawah ini untuk memulai:
 
-**1. Persiapan Awal**
-   - Pastikan Anda memiliki **Python 3.10** atau versi lebih baru.
-   - Pastikan **Git** terinstal di sistem Anda.
-   - Siapkan sebuah webcam yang berfungsi.
+**1. Persiapan**
+- Pastikan **Python 3.10+** sudah terinstal.
+- Siapkan webcam yang berfungsi dengan baik.
 
 **2. Clone Repository**
-   ```bash
-   git clone https://github.com/abyfromheaven/FAST.git
-   cd FAST
-   ```
+```bash
+git clone https://github.com/abyfromheaven/FAST.git
+cd FAST
+```
 
-**3. Instalasi Dependensi**
-   Sangat disarankan untuk menggunakan virtual environment.
-   ```bash
-   # Buat virtual environment (opsional tapi direkomendasikan)
-   python -m venv abyenv
+**3. Instalasi Library**
+```bash
+# Direkomendasikan menggunakan Virtual Environment
+python -m venv venv
+source venv/bin/activate  # Untuk Linux/macOS
+# atau
+venv\Scripts\activate     # Untuk Windows
 
-   # Linux / macOS
-   source abyenv/bin/activate
-
-   # Install semua library yang dibutuhkan
-   pip install -r requirements.txt
-   ```
+pip install -r requirements.txt
+```
 
 **4. Jalankan Aplikasi**
-   Setelah semua dependensi terinstal, jalankan file `main.py`.
-   ```bash
-   python main.py
-   ```
-   Aplikasi akan terbuka, dan jika ini adalah kali pertama, file database `data/facesentry.db` akan dibuat secara otomatis.
-
----
-
-### 📂 Struktur Proyek
-
-Struktur direktori telah dirapikan untuk kemudahan pemeliharaan:
-
-```
-FAST/
-│
-├── main.py                # Titik masuk utama aplikasi dan logika GUI
-├── config.py              # File konfigurasi terpusat (path, dll.)
-├── requirements.txt       # Daftar dependensi Python
-├── README.md              # Anda sedang membacanya
-│
-├── services/              # Folder untuk semua logika inti
-│   ├── database_service.py  # Mengelola semua interaksi database
-│   └── face_service.py      # Mengelola rekam wajah, training, dan absensi
-│
-├── data/
-│   ├── facesentry.db        # File database SQLite
-│   └── datasets/            # Tempat menyimpan gambar wajah hasil registrasi
-│       ├── guru/
-│       └── siswa/
-│
-└─── media/                 # Aset media seperti video atau gambar
+```bash
+python run.py
 ```
 
 ---
 
-### 🧑‍💼 Kontributor Proyek
+### 🛠️ Teknologi
 
-- **Muhammad Abiyan Hafidz** - Application Developer
+- **Python**: Bahasa pemrograman utama.
+- **OpenCV**: Pengolahan gambar & LBPH Face Recognition.
+- **CustomTkinter**: Modern GUI framework.
+- **SQLite3**: Database engine ringan.
+
+---
+
+### 🧑‍💻 Tim Pengembang
+
+- **Muhammad Abiyan Hafidz** - Lead Developer
 - **Darwin Baratha** - Web Developer
-- **Rekan Aska Rastia** - Dokumentasi & User Support
-- **Muhammad Phasa** - Quality Assurance & Project Management
+- **Rekan Aska Rastia** - Documentation
+- **Muhammad Phasa** - QA & Project Management
 
 ---
 
 ### 📄 Lisensi
 
-Proyek ini dilisensikan di bawah [MIT License](LICENSE) © 2025 AbyFromHeaven.
+© 2025 **AbyFromHeaven**. Dilindungi di bawah [MIT License](LICENSE).

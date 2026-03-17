@@ -2,7 +2,7 @@
 import os
 
 # Direktori dasar proyek
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # ID Kamera yang digunakan
 CAMERA_ID = 0
@@ -12,7 +12,7 @@ CAMERA_ID = 0
 # =====================================================================
 
 # Path untuk file classifier Haar Cascade
-HAARCASCADE_PATH = os.path.join(BASE_DIR, 'haarcascade_frontalface_default.xml')
+HAARCASCADE_PATH = os.path.join(BASE_DIR, 'assets', 'resources', 'haarcascade_frontalface_default.xml')
 
 # Path untuk direktori data
 DATA_DIR = os.path.join(BASE_DIR, 'data')
