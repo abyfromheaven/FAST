@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); }
         .gradient-text { background: linear-gradient(90deg, #f1c40f, #f39c12); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
         #bg-video {
@@ -27,25 +27,32 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(15, 23, 42, 0.7);
-            backdrop-filter: blur(4px);
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             z-index: -1;
         }
     </style>
 </head>
 <body class="bg-[#0f172a] text-slate-200 antialiased">
 
+    <!-- Development Notice Banner -->
+    <div class="fixed top-0 w-full z-[100] bg-yellow-500 text-slate-900 py-1 text-center text-[10px] font-bold tracking-[0.2em] uppercase">
+        ⚠️ Project masih dalam tahap pengembangan (In Development Phase) ⚠️
+    </div>
+
     <!-- Video Background -->
-    <video autoplay muted loop id="bg-video">
-        <source src="../assets/media/background.mp4" type="video/mp4">
+    <video autoplay muted loop playsinline id="bg-video">
+        <source src="assets/media/background.mp4" type="video/mp4">
     </video>
     <div class="video-overlay"></div>
 
     <!-- Navbar -->
     <nav class="fixed top-0 w-full z-50 glass border-b border-white/10">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="flex items-center space-x-2">
+            <div class="flex flex-col">
                 <span class="text-2xl font-bold gradient-text tracking-tighter">FAST</span>
+                <span class="text-[10px] text-slate-400 font-medium tracking-[0.2em] -mt-1 hidden sm:block">FACE ATTENDANCE SCAN TECHNOLOGY</span>
             </div>
             <div class="hidden md:flex items-center space-x-8 text-sm font-medium">
                 <a href="#fitur" class="hover:text-yellow-500 transition-colors">Fitur</a>
@@ -73,7 +80,7 @@
                         Absensi Wajah <br/><span class="gradient-text italic">Generasi Baru</span>
                     </h1>
                     <p class="text-xl text-slate-300 max-w-xl leading-relaxed">
-                        Solusi manajemen kehadiran yang cerdas, cepat, dan aman menggunakan algoritma pengenalan wajah LBPH.
+                        <span class="text-yellow-500 font-semibold">Face Attendance Scan Technology (FAST)</span> adalah solusi manajemen kehadiran yang cerdas, cepat, dan aman menggunakan algoritma pengenalan wajah LBPH.
                     </p>
                     <div class="flex flex-wrap gap-4">
                         <a href="#panduan" class="bg-white text-slate-900 px-10 py-4 rounded-2xl font-bold hover:bg-slate-200 transition-all shadow-xl shadow-white/10">Mulai Instalasi</a>
@@ -82,7 +89,7 @@
                 </div>
                 <div class="relative group">
                     <div class="absolute -inset-4 bg-gradient-to-r from-yellow-500/30 to-orange-500/30 rounded-[2.5rem] blur-2xl opacity-50 transition duration-1000"></div>
-                    <img src="../assets/media/preview.jpg" alt="Preview Aplikasi" class="relative rounded-[2rem] border border-white/10 shadow-2xl transition-transform duration-700 group-hover:scale-[1.02]">
+                    <img src="assets/media/preview.jpg" alt="Preview Aplikasi" class="relative rounded-[2rem] border border-white/10 shadow-2xl transition-transform duration-700 group-hover:scale-[1.02]">
                 </div>
             </div>
         </div>

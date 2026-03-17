@@ -5,7 +5,11 @@
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg?style=for-the-badge&logo=python)
 ![OpenCV](https://img.shields.io/badge/OpenCV-4.x-green.svg?style=for-the-badge&logo=opencv)
 ![License](https://img.shields.io/badge/License-MIT-orange.svg?style=for-the-badge)
-![Status](https://img.shields.io/badge/Status-Active-brightgreen.svg?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-In_Development-yellow.svg?style=for-the-badge)
+
+> [!IMPORTANT]
+> **PROYEK DALAM TAHAP PENGEMBANGAN (IN DEVELOPMENT)**  
+> Proyek FAST ini masih dalam tahap pengembangan aktif. Beberapa fitur mungkin belum stabil atau sedang dalam proses penyempurnaan. Kontribusi dan saran sangat kami hargai.
 
 **FAST (Face Attendance Scan Technology)** adalah solusi absensi desktop modern berbasis pengenalan wajah.  
 Dibuat dengan Python dan CustomTkinter untuk memberikan pengalaman pengguna yang elegan dan efisien.
