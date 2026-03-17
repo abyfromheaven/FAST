@@ -8,21 +8,49 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
         .gradient-text { background: linear-gradient(90deg, #f1c40f, #f39c12); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        #bg-video {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -2;
+            object-fit: cover;
+        }
+        
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(4px);
+            z-index: -1;
+        }
     </style>
 </head>
 <body class="bg-[#0f172a] text-slate-200 antialiased">
+
+    <!-- Video Background -->
+    <video autoplay muted loop id="bg-video">
+        <source src="../assets/media/background.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
 
     <!-- Navbar -->
     <nav class="fixed top-0 w-full z-50 glass border-b border-white/10">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <div class="flex items-center space-x-2">
-                <span class="text-2xl font-bold gradient-text">FAST</span>
+                <span class="text-2xl font-bold gradient-text tracking-tighter">FAST</span>
             </div>
             <div class="hidden md:flex items-center space-x-8 text-sm font-medium">
                 <a href="#fitur" class="hover:text-yellow-500 transition-colors">Fitur</a>
                 <a href="#teknologi" class="hover:text-yellow-500 transition-colors">Teknologi</a>
+                <a href="#tim" class="hover:text-yellow-500 transition-colors">Tim</a>
                 <a href="#panduan" class="hover:text-yellow-500 transition-colors">Panduan</a>
                 <a href="https://github.com/abyfromheaven/FAST" target="_blank" class="bg-yellow-500 text-slate-900 px-5 py-2.5 rounded-full hover:bg-yellow-400 transition-all font-bold">GitHub</a>
             </div>
@@ -30,31 +58,31 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative pt-40 pb-20 overflow-hidden">
+    <section class="relative pt-48 pb-24 overflow-hidden">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
                 <div class="space-y-8">
                     <div class="inline-flex items-center space-x-2 bg-yellow-500/10 border border-yellow-500/20 px-4 py-2 rounded-full">
                         <span class="relative flex h-2 w-2">
                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
                             <span class="relative inline-flex rounded-full h-2 w-2 bg-yellow-500"></span>
                         </span>
-                        <span class="text-xs font-bold text-yellow-500 uppercase tracking-wider">v2.0 Reorganized</span>
+                        <span class="text-xs font-bold text-yellow-500 uppercase tracking-wider">v2.0 Clean Engine</span>
                     </div>
-                    <h1 class="text-5xl lg:text-7xl font-bold leading-tight">
-                        Absensi Cerdas dengan <span class="gradient-text">Pengenalan Wajah</span>
+                    <h1 class="text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-tight text-white">
+                        Absensi Wajah <br/><span class="gradient-text italic">Generasi Baru</span>
                     </h1>
-                    <p class="text-lg text-slate-400 max-w-xl leading-relaxed">
-                        Sistem absensi modern berbasis Python yang cepat, akurat, dan otomatis. Dirancang untuk efisiensi di sekolah maupun instansi.
+                    <p class="text-xl text-slate-300 max-w-xl leading-relaxed">
+                        Solusi manajemen kehadiran yang cerdas, cepat, dan aman menggunakan algoritma pengenalan wajah LBPH.
                     </p>
                     <div class="flex flex-wrap gap-4">
-                        <a href="#panduan" class="bg-white text-slate-900 px-8 py-4 rounded-xl font-bold hover:bg-slate-200 transition-all">Mulai Sekarang</a>
-                        <a href="https://github.com/abyfromheaven/FAST" class="glass px-8 py-4 rounded-xl font-bold hover:bg-white/10 transition-all border border-white/20">Source Code</a>
+                        <a href="#panduan" class="bg-white text-slate-900 px-10 py-4 rounded-2xl font-bold hover:bg-slate-200 transition-all shadow-xl shadow-white/10">Mulai Instalasi</a>
+                        <a href="#fitur" class="glass px-10 py-4 rounded-2xl font-bold hover:bg-white/10 transition-all border border-white/20">Lihat Fitur</a>
                     </div>
                 </div>
                 <div class="relative group">
-                    <div class="absolute -inset-1 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-                    <img src="../assets/media/preview.jpg" alt="Preview Aplikasi" class="relative rounded-2xl border border-white/10 shadow-2xl">
+                    <div class="absolute -inset-4 bg-gradient-to-r from-yellow-500/30 to-orange-500/30 rounded-[2.5rem] blur-2xl opacity-50 transition duration-1000"></div>
+                    <img src="../assets/media/preview.jpg" alt="Preview Aplikasi" class="relative rounded-[2rem] border border-white/10 shadow-2xl transition-transform duration-700 group-hover:scale-[1.02]">
                 </div>
             </div>
         </div>
@@ -63,16 +91,16 @@
     <!-- CRITICAL NOTICE -->
     <section class="py-12 px-6">
         <div class="max-w-7xl mx-auto">
-            <div class="bg-red-500/10 border border-red-500/20 p-8 rounded-3xl flex flex-col md:flex-row items-center gap-6">
-                <div class="bg-red-500 p-4 rounded-2xl">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div class="glass border-red-500/30 bg-red-500/5 p-8 rounded-[2.5rem] flex flex-col md:flex-row items-center gap-8">
+                <div class="bg-red-500/20 p-5 rounded-2xl">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                     </svg>
                 </div>
-                <div class="flex-1">
-                    <h3 class="text-xl font-bold text-red-400 mb-2">Informasi Penting: Dataset Kosong</h3>
-                    <p class="text-slate-400 leading-relaxed">
-                        Saat melakukan <code>git clone</code>, project ini <strong>tidak menyertakan dataset wajah sama sekali</strong> demi menjaga privasi dan ukuran repo. Anda harus melakukan <strong>Rekam Wajah</strong> dan <strong>Training Model</strong> dari nol menggunakan menu yang tersedia di aplikasi sebelum fitur absensi dapat digunakan.
+                <div class="flex-1 text-center md:text-left">
+                    <h3 class="text-2xl font-bold text-red-400 mb-2 italic underline underline-offset-8 decoration-red-500/20">PERINGATAN: DATASET KOSONG</h3>
+                    <p class="text-slate-300 text-lg leading-relaxed">
+                        Demi privasi, project ini tidak menyertakan data wajah. Anda <strong>wajib</strong> melakukan perekaman dan pelatihan model pertama kali melalui menu aplikasi agar fitur absensi dapat berfungsi.
                     </p>
                 </div>
             </div>
@@ -80,90 +108,130 @@
     </section>
 
     <!-- Features -->
-    <section id="fitur" class="py-24 px-6 relative">
+    <section id="fitur" class="py-32 px-6">
         <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16 space-y-4">
-                <h2 class="text-4xl font-bold">Fitur Unggulan</h2>
-                <p class="text-slate-400">Teknologi modern untuk kemudahan administrasi Anda.</p>
+            <div class="text-center mb-20 space-y-4">
+                <h2 class="text-5xl font-bold tracking-tight text-white">Fitur Utama</h2>
+                <div class="w-24 h-1.5 bg-yellow-500 mx-auto rounded-full"></div>
             </div>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="glass p-8 rounded-3xl hover:bg-white/5 transition-all group">
-                    <div class="w-12 h-12 bg-yellow-500/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div class="grid md:grid-cols-3 gap-10">
+                <div class="glass p-10 rounded-[2.5rem] hover:bg-white/5 transition-all group border-white/5">
+                    <div class="w-16 h-16 bg-yellow-500/10 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-yellow-500/20 transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
                         </svg>
                     </div>
-                    <h4 class="text-xl font-bold mb-4">Rekam Wajah Instan</h4>
-                    <p class="text-slate-400 text-sm leading-relaxed">Proses pendaftaran wajah yang mudah dengan ID otomatis untuk setiap Guru dan Siswa.</p>
+                    <h4 class="text-2xl font-bold mb-4 text-white tracking-tight">Perekaman Wajah</h4>
+                    <p class="text-slate-400 leading-relaxed">Sistem pendaftaran wajah cerdas dengan ID otomatis untuk Guru dan Siswa.</p>
                 </div>
-                <div class="glass p-8 rounded-3xl hover:bg-white/5 transition-all group">
-                    <div class="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="glass p-10 rounded-[2.5rem] hover:bg-white/5 transition-all group border-white/5">
+                    <div class="w-16 h-16 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-blue-500/20 transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                         </svg>
                     </div>
-                    <h4 class="text-xl font-bold mb-4">Training LBPH</h4>
-                    <p class="text-slate-400 text-sm leading-relaxed">Pelatihan model wajah secara lokal dengan algoritma LBPH yang cepat dan efisien tanpa perlu cloud.</p>
+                    <h4 class="text-2xl font-bold mb-4 text-white tracking-tight">Training Lokal</h4>
+                    <p class="text-slate-400 leading-relaxed">Pelatihan model LBPH langsung di perangkat Anda tanpa perlu koneksi internet atau cloud.</p>
                 </div>
-                <div class="glass p-8 rounded-3xl hover:bg-white/5 transition-all group">
-                    <div class="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="glass p-10 rounded-[2.5rem] hover:bg-white/5 transition-all group border-white/5">
+                    <div class="w-16 h-16 bg-green-500/10 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-green-500/20 transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                         </svg>
                     </div>
-                    <h4 class="text-xl font-bold mb-4">Notifikasi ntfy.sh</h4>
-                    <p class="text-slate-400 text-sm leading-relaxed">Dapatkan notifikasi push real-time ke smartphone Anda setiap kali ada wajah yang berhasil terdeteksi.</p>
+                    <h4 class="text-2xl font-bold mb-4 text-white tracking-tight">Push Notification</h4>
+                    <p class="text-slate-400 leading-relaxed">Notifikasi real-time via ntfy.sh setiap ada absensi yang tercatat ke database.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="tim" class="py-32 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20 space-y-4">
+                <h2 class="text-5xl font-bold tracking-tight text-white">Tim Pengembang</h2>
+                <p class="text-slate-400 text-lg italic">Orang-orang dibalik layar kesuksesan FAST Project.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="glass p-8 rounded-[2rem] text-center group hover:border-yellow-500/30 transition-all">
+                    <div class="w-20 h-20 bg-yellow-500/10 rounded-full mx-auto mb-6 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <span class="text-2xl font-bold text-yellow-500">AH</span>
+                    </div>
+                    <h5 class="text-xl font-bold text-white mb-1">Abiyan Hafidz</h5>
+                    <p class="text-yellow-500/80 text-sm font-semibold uppercase tracking-widest">Lead Developer</p>
+                </div>
+                <div class="glass p-8 rounded-[2rem] text-center group hover:border-blue-500/30 transition-all text-white">
+                    <div class="w-20 h-20 bg-blue-500/10 rounded-full mx-auto mb-6 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <span class="text-2xl font-bold text-blue-500">DB</span>
+                    </div>
+                    <h5 class="text-xl font-bold text-white mb-1">Darwin Baratha</h5>
+                    <p class="text-blue-500/80 text-sm font-semibold uppercase tracking-widest">Web Developer</p>
+                </div>
+                <div class="glass p-8 rounded-[2rem] text-center group hover:border-green-500/30 transition-all">
+                    <div class="w-20 h-20 bg-green-500/10 rounded-full mx-auto mb-6 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <span class="text-2xl font-bold text-green-500">RR</span>
+                    </div>
+                    <h5 class="text-xl font-bold text-white mb-1">Rekan Rastia</h5>
+                    <p class="text-green-500/80 text-sm font-semibold uppercase tracking-widest">Documentation</p>
+                </div>
+                <div class="glass p-8 rounded-[2rem] text-center group hover:border-purple-500/30 transition-all">
+                    <div class="w-20 h-20 bg-purple-500/10 rounded-full mx-auto mb-6 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <span class="text-2xl font-bold text-purple-500">MP</span>
+                    </div>
+                    <h5 class="text-xl font-bold text-white mb-1">Muhammad Phasa</h5>
+                    <p class="text-purple-500/80 text-sm font-semibold uppercase tracking-widest">QA Manager</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Tech Stack -->
-    <section id="teknologi" class="py-24 bg-slate-900/50">
+    <section id="teknologi" class="py-32 glass border-y-white/5 border-x-0 rounded-none bg-slate-900/40 backdrop-blur-2xl">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
+            <div class="grid lg:grid-cols-2 gap-20 items-center">
                 <div>
-                    <h2 class="text-4xl font-bold mb-8">Dibuat dengan <span class="gradient-text">Teknologi Modern</span></h2>
-                    <div class="space-y-6">
-                        <div class="flex items-start space-x-4">
-                            <div class="mt-1 bg-yellow-500/10 p-2 rounded-lg"><span class="text-yellow-500 font-bold">Py</span></div>
+                    <h2 class="text-5xl font-bold mb-10 text-white leading-tight tracking-tight">Stack Teknologi <br/>Yang <span class="gradient-text">Teruji</span></h2>
+                    <div class="space-y-8">
+                        <div class="flex items-start space-x-6">
+                            <div class="bg-yellow-500/10 p-3 rounded-xl border border-yellow-500/20"><span class="text-yellow-500 font-bold text-xl">Py</span></div>
                             <div>
-                                <h5 class="font-bold">Python & CustomTkinter</h5>
-                                <p class="text-slate-400 text-sm">Logika utama yang stabil dengan antarmuka pengguna yang modern dan responsif.</p>
+                                <h5 class="text-xl font-bold text-white mb-2 tracking-tight">Python & CustomTkinter</h5>
+                                <p class="text-slate-400 leading-relaxed">Stabilitas bahasa Python dipadukan dengan keindahan UI modern CustomTkinter.</p>
                             </div>
                         </div>
-                        <div class="flex items-start space-x-4">
-                            <div class="mt-1 bg-blue-500/10 p-2 rounded-lg"><span class="text-blue-500 font-bold">CV</span></div>
+                        <div class="flex items-start space-x-6">
+                            <div class="bg-blue-500/10 p-3 rounded-xl border border-blue-500/20"><span class="text-blue-500 font-bold text-xl">CV</span></div>
                             <div>
-                                <h5 class="font-bold">OpenCV & LBPH</h5>
-                                <p class="text-slate-400 text-sm">Computer vision tingkat lanjut untuk deteksi dan rekognisi wajah yang akurat.</p>
+                                <h5 class="text-xl font-bold text-white mb-2 tracking-tight">OpenCV & LBPH</h5>
+                                <p class="text-slate-400 leading-relaxed">Pengenalan wajah berbasis histogram untuk hasil yang cepat dan akurat.</p>
                             </div>
                         </div>
-                        <div class="flex items-start space-x-4">
-                            <div class="mt-1 bg-green-500/10 p-2 rounded-lg"><span class="text-green-500 font-bold">DB</span></div>
+                        <div class="flex items-start space-x-6">
+                            <div class="bg-green-500/10 p-3 rounded-xl border border-green-500/20"><span class="text-green-500 font-bold text-xl">DB</span></div>
                             <div>
-                                <h5 class="font-bold">SQLite3</h5>
-                                <p class="text-slate-400 text-sm">Penyimpanan data kehadiran yang aman, ringan, dan terstruktur secara lokal.</p>
+                                <h5 class="text-xl font-bold text-white mb-2 tracking-tight">SQLite3</h5>
+                                <p class="text-slate-400 leading-relaxed">Database terintegrasi untuk pencatatan riwayat absensi secara lokal.</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="glass p-6 rounded-2xl text-center">
-                        <div class="text-3xl font-bold text-yellow-500 mb-1">LBPH</div>
-                        <div class="text-xs text-slate-500 uppercase tracking-widest">Algorithm</div>
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="glass p-10 rounded-[2rem] text-center border-white/10 hover:bg-white/5 transition-all">
+                        <div class="text-4xl font-extrabold text-yellow-500 mb-2">LBPH</div>
+                        <div class="text-xs text-slate-500 font-bold uppercase tracking-[0.2em]">Algorithm</div>
                     </div>
-                    <div class="glass p-6 rounded-2xl text-center">
-                        <div class="text-3xl font-bold text-blue-500 mb-1">3.10+</div>
-                        <div class="text-xs text-slate-500 uppercase tracking-widest">Python Version</div>
+                    <div class="glass p-10 rounded-[2rem] text-center border-white/10 hover:bg-white/5 transition-all">
+                        <div class="text-4xl font-extrabold text-blue-500 mb-2">3.10+</div>
+                        <div class="text-xs text-slate-500 font-bold uppercase tracking-[0.2em]">Python Core</div>
                     </div>
-                    <div class="glass p-6 rounded-2xl text-center">
-                        <div class="text-3xl font-bold text-green-500 mb-1">ntfy</div>
-                        <div class="text-xs text-slate-500 uppercase tracking-widest">Notification</div>
+                    <div class="glass p-10 rounded-[2rem] text-center border-white/10 hover:bg-white/5 transition-all">
+                        <div class="text-4xl font-extrabold text-green-500 mb-2">ntfy</div>
+                        <div class="text-xs text-slate-500 font-bold uppercase tracking-[0.2em]">Push Engine</div>
                     </div>
-                    <div class="glass p-6 rounded-2xl text-center">
-                        <div class="text-3xl font-bold text-orange-500 mb-1">GUI</div>
-                        <div class="text-xs text-slate-500 uppercase tracking-widest">Modern UI</div>
+                    <div class="glass p-10 rounded-[2rem] text-center border-white/10 hover:bg-white/5 transition-all">
+                        <div class="text-4xl font-extrabold text-orange-500 mb-2">GUI</div>
+                        <div class="text-xs text-slate-500 font-bold uppercase tracking-[0.2em]">Modern Kit</div>
                     </div>
                 </div>
             </div>
@@ -171,55 +239,56 @@
     </section>
 
     <!-- Guide -->
-    <section id="panduan" class="py-24 px-6">
-        <div class="max-w-3xl mx-auto">
-            <div class="text-center mb-16 space-y-4">
-                <h2 class="text-4xl font-bold">Panduan Instalasi</h2>
-                <p class="text-slate-400">Ikuti langkah ini untuk menjalankan aplikasi di perangkat Anda.</p>
+    <section id="panduan" class="py-32 px-6">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-24 space-y-4">
+                <h2 class="text-5xl font-bold tracking-tight text-white italic">Quick Setup</h2>
+                <p class="text-slate-400 text-lg">Cukup 3 langkah mudah untuk memulai aplikasi.</p>
             </div>
-            <div class="space-y-12">
-                <div class="relative pl-12 border-l-2 border-white/10">
-                    <div class="absolute -left-3.5 top-0 w-7 h-7 bg-yellow-500 rounded-full flex items-center justify-center font-bold text-slate-900 text-sm shadow-[0_0_20px_rgba(234,179,8,0.3)]">1</div>
-                    <h5 class="text-xl font-bold mb-4 text-white">Persiapan Lingkungan</h5>
-                    <p class="text-slate-400 mb-4">Pastikan Anda telah menginstal Python 3.10 ke atas. Clone repository ini ke folder lokal Anda.</p>
-                    <div class="bg-black/50 p-4 rounded-xl border border-white/10 font-mono text-sm text-yellow-500/80">
+            <div class="space-y-16">
+                <div class="relative pl-20 border-l-4 border-white/10 pb-8">
+                    <div class="absolute -left-[1.65rem] top-0 w-12 h-12 bg-white text-slate-900 rounded-full flex items-center justify-center font-black text-xl shadow-[0_0_30px_rgba(255,255,255,0.2)]">1</div>
+                    <h5 class="text-3xl font-extrabold mb-6 text-white tracking-tight">Clone Repository</h5>
+                    <p class="text-slate-400 text-lg leading-relaxed mb-6">Unduh kode sumber project ini ke direktori lokal Anda.</p>
+                    <div class="bg-black/60 p-6 rounded-2xl border border-white/10 font-mono text-sm text-yellow-500 leading-relaxed shadow-inner">
                         git clone https://github.com/abyfromheaven/FAST.git
                     </div>
                 </div>
-                <div class="relative pl-12 border-l-2 border-white/10">
-                    <div class="absolute -left-3.5 top-0 w-7 h-7 bg-yellow-500 rounded-full flex items-center justify-center font-bold text-slate-900 text-sm">2</div>
-                    <h5 class="text-xl font-bold mb-4 text-white">Instalasi Dependensi</h5>
-                    <p class="text-slate-400 mb-4">Install semua library yang dibutuhkan menggunakan pip melalui terminal atau CMD.</p>
-                    <div class="bg-black/50 p-4 rounded-xl border border-white/10 font-mono text-sm text-yellow-500/80">
+                <div class="relative pl-20 border-l-4 border-white/10 pb-8">
+                    <div class="absolute -left-[1.65rem] top-0 w-12 h-12 bg-yellow-500 text-slate-900 rounded-full flex items-center justify-center font-black text-xl shadow-[0_0_30px_rgba(234,179,8,0.3)]">2</div>
+                    <h5 class="text-3xl font-extrabold mb-6 text-white tracking-tight">Install Dependencies</h5>
+                    <p class="text-slate-400 text-lg leading-relaxed mb-6">Pastikan semua library terinstal dengan sempurna melalui pip.</p>
+                    <div class="bg-black/60 p-6 rounded-2xl border border-white/10 font-mono text-sm text-yellow-500 leading-relaxed shadow-inner">
                         pip install -r requirements.txt
                     </div>
                 </div>
-                <div class="relative pl-12 border-l-2 border-white/10">
-                    <div class="absolute -left-3.5 top-0 w-7 h-7 bg-yellow-500 rounded-full flex items-center justify-center font-bold text-slate-900 text-sm">3</div>
-                    <h5 class="text-xl font-bold mb-4 text-white">Menjalankan Aplikasi</h5>
-                    <p class="text-slate-400 mb-4">Gunakan file <code>run.py</code> di root project untuk memulai aplikasi dengan benar.</p>
-                    <div class="bg-black/50 p-4 rounded-xl border border-white/10 font-mono text-sm text-yellow-500/80">
+                <div class="relative pl-20 border-l-4 border-white/10">
+                    <div class="absolute -left-[1.65rem] top-0 w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 text-white rounded-full flex items-center justify-center font-black text-xl shadow-[0_0_30px_rgba(245,158,11,0.3)]">3</div>
+                    <h5 class="text-3xl font-extrabold mb-6 text-white tracking-tight">Run Engine</h5>
+                    <p class="text-slate-400 text-lg leading-relaxed mb-6">Gunakan file entry point utama untuk meluncurkan aplikasi.</p>
+                    <div class="bg-black/60 p-6 rounded-2xl border border-white/10 font-mono text-sm text-yellow-500 leading-relaxed shadow-inner">
                         python run.py
                     </div>
-                </div>
-                <div class="relative pl-12">
-                    <div class="absolute -left-3.5 top-0 w-7 h-7 bg-red-500 rounded-full flex items-center justify-center font-bold text-white text-sm shadow-[0_0_20px_rgba(239,68,68,0.3)]">!</div>
-                    <h5 class="text-xl font-bold mb-4 text-red-400">Penting: Training Model</h5>
-                    <p class="text-slate-400">Setelah aplikasi terbuka, masuk ke menu <strong>Rekam Wajah</strong> untuk mendaftarkan diri, lalu klik <strong>Latih Model</strong>. Fitur absensi tidak akan berfungsi sebelum langkah ini dilakukan.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-12 border-t border-white/10">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:row items-center justify-between gap-6 text-sm text-slate-500">
-            <div>&copy; 2025 FAST Project. All rights reserved.</div>
-            <div class="flex items-center space-x-6">
-                <a href="https://github.com/abyfromheaven/FAST" class="hover:text-white transition-colors">GitHub</a>
-                <a href="#" class="hover:text-white transition-colors">Documentation</a>
-                <a href="#" class="hover:text-white transition-colors">Contact</a>
+    <footer class="py-20 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-10">
+            <div class="text-center md:text-left">
+                <span class="text-2xl font-black gradient-text tracking-tighter mb-4 inline-block">FAST Project</span>
+                <p class="text-slate-500 text-sm max-w-xs">Teknologi absensi wajah modern untuk mempermudah administrasi masa kini.</p>
             </div>
+            <div class="flex items-center space-x-10 text-sm font-bold text-slate-400">
+                <a href="https://github.com/abyfromheaven/FAST" class="hover:text-white transition-colors">GITHUB</a>
+                <a href="#panduan" class="hover:text-white transition-colors">SETUP</a>
+                <a href="#tim" class="hover:text-white transition-colors">TIM</a>
+            </div>
+        </div>
+        <div class="text-center mt-16 text-xs text-slate-600 tracking-widest font-bold uppercase">
+            &copy; 2025 AbyFromHeaven & Team. Built for the future.
         </div>
     </footer>
 
