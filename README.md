@@ -94,7 +94,7 @@ FAST/
 
 ### 🧑‍💼 Kontributor Proyek
 
-- **Muhammad Abiyan Hafidz (Aby)** - Application Developer
+- **Muhammad Abiyan Hafidz** - Application Developer
 - **Darwin Baratha** - Web Developer
 - **Rekan Aska Rastia** - Dokumentasi & User Support
 - **Muhammad Phasa** - Quality Assurance & Project Management
