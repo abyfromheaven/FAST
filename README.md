@@ -19,6 +19,18 @@ Dibuat dengan Python dan CustomTkinter untuk memberikan pengalaman pengguna yang
 
 ---
 
+### ⚠️ PERINGATAN PENTING: DATASET KOSONG (MULAI DARI NOL)
+
+**Harap diperhatikan:** Saat Anda melakukan `git clone` project ini, **tidak ada data wajah (dataset) atau model yang sudah dilatih** yang disertakan. Hal ini dilakukan untuk menjaga privasi dan kebersihan repository.
+
+Untuk menggunakan aplikasi ini, Anda **WAJIB** mengikuti langkah berikut:
+1. Jalankan aplikasi menggunakan `python run.py`.
+2. Masuk ke menu **Rekam Wajah** untuk mendaftarkan wajah baru (Siswa atau Guru).
+3. Setelah merekam, masuk ke menu **Latih Model** untuk melakukan training secara langsung.
+4. Fitur **Absensi** baru akan berfungsi setelah model berhasil dilatih.
+
+---
+
 ### ✨ Fitur Utama
 
 - **👤 Manajemen User Terpisah**: Mendukung data untuk **Siswa** (dengan kelas) dan **Guru** (dengan mata pelajaran).
@@ -34,8 +46,7 @@ Dibuat dengan Python dan CustomTkinter untuk memberikan pengalaman pengguna yang
 
 ```text
 FAST/
-├── 📂 assets/              # Aset aplikasi (apk, media, resource)
-│   ├── 📂 apk/             # File instalasi Android (.apk)
+├── 📂 assets/              # Aset aplikasi (media, resource)
 │   ├── 📂 media/           # Video latar belakang dan gambar preview
 │   └── 📂 resources/       # Model Haar Cascade dan file teks pesan
 ├── 📂 data/                # Penyimpanan data lokal
